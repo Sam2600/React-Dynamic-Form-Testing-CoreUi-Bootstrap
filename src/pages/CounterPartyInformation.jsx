@@ -6,7 +6,7 @@ export const CounterPartyInformation = () => {
     return (
         <div className='GeneralInformation-Container'>
 
-            <h5 className='header'>General Information</h5>
+            <h5 className='h3'>General Information</h5>
 
             <CForm className="row g-3">
                 <CCol md={6}>
