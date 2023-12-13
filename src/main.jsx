@@ -7,6 +7,7 @@ import { DefaultLayout } from './layouts/DefaultLayout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { CounterPartyInformation } from './pages/CounterPartyInformation'
 import { Login } from './pages/Login'
+import { Testing } from './pages/Testing'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<CounterPartyInformation />} />
         </Route>
         <Route path='/login' element={<Login />} />
+        <Route path='/test' element={<Testing />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

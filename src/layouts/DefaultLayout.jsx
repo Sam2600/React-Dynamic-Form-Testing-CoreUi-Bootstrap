@@ -21,14 +21,14 @@ export const DefaultLayout = () => {
     })
 
     return (
-        <div className='addContract-Container'>
-            <h5 className='header'>Add Contract</h5>
-            <div className='stepper'>
-                {totalRegisterSteps}
+            <div className="addContract-Container bg-dark text-white">
+                <h5 className='header'>Add Contract</h5>
+                <div className='stepper'>
+                    {totalRegisterSteps}
+                </div>
+                <div className='form-Container'>
+                    <Outlet />
+                </div>
             </div>
-            <div className='form-Container'>
-                <Outlet />
-            </div>
-        </div>
     )
 }

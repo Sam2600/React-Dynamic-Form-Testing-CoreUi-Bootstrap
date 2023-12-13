@@ -7,15 +7,18 @@
 
 .addContract-Container {
     position: relative;
-    width: 1178px;
-    height: 940px;
     top: 84px;
     left: 262px;
     background: #000;
+
+    width: 1178px;
+    height: 940px;
+
     font-weight: 700;
     font-family: sans-serif;
     font-size: 24px;
     line-height: 45px;
+
 }
 
 .header {
@@ -118,5 +121,23 @@
 }
 
 .login-Btn {
+    background: linear-gradient(89.99deg, #235B6A -1.55%, rgba(94, 184, 202, 0.97) 100.2%, rgba(160, 8, 248, 0.72) 100.22%, #235E6A 100.23%);
+}
+
+.p32LR{
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.p32TB{
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.btn1{
+    width: 125px;
+    height: 44px;
+    border-radius: 8px;
+    gap: 12px;
     background: linear-gradient(89.99deg, #235B6A -1.55%, rgba(94, 184, 202, 0.97) 100.2%, rgba(160, 8, 248, 0.72) 100.22%, #235E6A 100.23%);
 }

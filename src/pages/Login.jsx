@@ -8,15 +8,16 @@ export const Login = () => {
 
     return (
 
-        <section className="p-3 p-md-4 p-xl-5">
+        <section>
 
             <div className="container">
 
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-center ">
 
+                    {/** Login Form */}
                     <div className="col-12 col-lg-5 col-md-7">
-
-                        <div className="p-3 p-md-4 p-xl-5">
+                        
+                        <div className="p-2 p-md-4 p-xl-5">
 
                             <div className="row">
                                 <div className="col-12 g-5">
@@ -62,10 +63,13 @@ export const Login = () => {
 
                         </div>
                     </div>
+                    {/** Login Form */}
 
                     {/** LoginForm Photo */}
                     <div className="col-lg-6 col-md-6">
-                        <img className="img-fluid rounded mx-auto my-4" loading="lazy" src={LoginPhoto} width="100%" height="100%" alt="LoginPhoto" />
+                        <div className='p-3 p-md-4 p-xl-5'>
+                            <img className="img-fluid rounded mx-auto my-4" loading="lazy" src={LoginPhoto} width="100%" height="100%" alt="LoginPhoto" />
+                        </div>
                     </div>
                     {/** LoginForm Photo */}
 
