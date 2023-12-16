@@ -1,193 +1,211 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./custom.css";
+import FilledSvg from "../../../public/assets/Filled.svg";
 
 export const TestingPage = () => {
   return (
-    <div className="d-flex flex-column mx-auto bg-dark container-whp">
+    <div className="container-whp d-flex flex-column mx-auto">
       {/** Title */}
-      <div
-        style={{ height: "45px" }}
-        className="d-flex align-items-center bg-black"
-      >
-        <h4>Title</h4>
+      <div style={{ height: "45px" }} className="d-flex align-items-center">
+        <h4 className="fw-bold text-black">Add Contract</h4>
       </div>
       {/** Title */}
 
       {/** Stepper */}
       <div className="d-flex flex-row my-4">
-        <div className="steppers bg-primary">General Information</div>
-        <div className="steppers bg-danger">Counter Party Information</div>
-        <div className="steppers bg-primary">Life Cycle</div>
-        <div className="steppers bg-danger">Payment Information</div>
+        <div className="steppers ">
+          <div className="stepper-child">
+            <img src={FilledSvg} alt="My SVG" />
+            <span className="stepper-child-bar"></span>
+          </div>
+          <div className="text-black">General Information</div>
+        </div>
+
+        <div className="steppers ">
+          <div className="stepper-child">
+            <img src={FilledSvg} alt="My SVG" />
+            <span className="stepper-child-bar"></span>
+          </div>
+          <div className="text-black">CounterParty Information</div>
+        </div>
+
+        <div className="steppers ">
+          <div className="stepper-child">
+            <img src={FilledSvg} alt="My SVG" />
+            <span className="stepper-child-bar"></span>
+          </div>
+          <div className="text-black">Life Cycle</div>
+        </div>
+
+        <div className="steppers ">
+          <div className="stepper-child">
+            <img src={FilledSvg} alt="My SVG" />
+            <span className="stepper-child-bar"></span>
+          </div>
+          <div className="text-black">Payment Information</div>
+        </div>
       </div>
       {/** Stepper */}
 
       {/** General Form Container */}
-      <div className="d-flex flex-column bg-success general-form-container">
+      <div className="d-flex bg-white shadow-lg flex-column general-form-container">
         {/** Title */}
         <div
           style={{ height: "38px" }}
-          className="d-flex align-items-center mb-4 bg-black"
+          className="d-flex align-items-center mb-4"
         >
-          <h4>Form title</h4>
+          <h5 className="fw-bold text-black">General Information</h5>
         </div>
         {/** Title */}
 
         {/** Form */}
-        <div className="d-flex flex-column bg-warning">
-          <div className="d-flex flex-row bg-primary justify-content-between">
+        <div className="d-flex flex-column ">
+          <div className="d-flex flex-row justify-content-between">
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
-            </div>
-          </div>
-
-          <div className="d-flex flex-row bg-primary justify-content-between">
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
-            >
-              <label htmlFor="exampleFormControlInput1" className="form-label">
-                Email address
-              </label>
-              <input
-                style={{ width: "300px" }}
-                type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
-            >
-              <label htmlFor="exampleFormControlInput1" className="form-label">
-                Email address
-              </label>
-              <input
-                style={{ width: "300px" }}
-                type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
-            >
-              <label htmlFor="exampleFormControlInput1" className="form-label">
-                Email address
-              </label>
-              <input
-                style={{ width: "300px" }}
-                type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
           </div>
 
-          <div className="d-flex flex-row bg-primary justify-content-between">
+          <div className="d-flex flex-row justify-content-between">
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1"
+              className="gap-1 width300"
             >
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 Email address
               </label>
               <input
-                style={{ width: "300px" }}
                 type="email"
-                className="form-control"
+                className="form-control w-100"
                 id="exampleFormControlInput1"
                 placeholder="name@example.com"
               />
             </div>
           </div>
 
-          <div>
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="exampleFormControlInput1" className="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                className="form-control w-100"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="exampleFormControlInput1" className="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                className="form-control w-100"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="exampleFormControlInput1" className="form-label">
+                Email address
+              </label>
+              <input
+                type="email"
+                className="form-control w-100"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+          </div>
+
+          <div
+            style={{ height: "74px", marginBottom: "16px" }}
+            className="gap-1 width300"
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Email address
             </label>
             <input
-              style={{ width: "300px" }}
               type="email"
-              className="form-control"
+              className="form-control w-100"
               id="exampleFormControlInput1"
               placeholder="name@example.com"
             />
@@ -200,7 +218,7 @@ export const TestingPage = () => {
           style={{ marginTop: "40px" }}
           className="d-flex flex-row align-items-end justify-content-end"
         >
-          <button className="btn btn-primary">Save&Next</button>
+          <button className="btn button text-white">Save&Next</button>
         </div>
         {/** Button */}
       </div>

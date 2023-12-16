@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CounterPartyInformation } from "./pages/CounterPartyInformation";
 import { Login } from "./pages/Login";
 import { TestingPage } from "./pages/Test/TestingPage";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
