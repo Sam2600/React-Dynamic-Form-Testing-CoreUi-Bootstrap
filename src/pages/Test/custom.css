@@ -1,0 +1,29 @@
+.container-whp {
+  max-width: 1178px;
+  height: 940px;
+
+  padding-top: 40px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.steppers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 219px;
+  height: 70px;
+  padding: 4px 12px 4px 12px;
+}
+
+.general-form-container {
+  padding-right: 30px;
+  padding-left: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.width300 {
+  width: 300px;
+}
