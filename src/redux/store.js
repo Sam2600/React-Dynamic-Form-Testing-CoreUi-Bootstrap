@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contractReducer from '../redux/features/contract/contractSlice';
+import stepReducer from './features/step/stepSlice';
 
 export const store = configureStore({
     reducer: {
-        contract: contractReducer
+        step: stepReducer
     },
 })

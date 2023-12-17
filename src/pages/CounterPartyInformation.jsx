@@ -1,7 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { useDispatch } from "react-redux";
+import { nextStep } from "../redux/features/step/stepSlice";
 
 export const CounterPartyInformation = () => {
+  const dispatch = useDispatch();
+
   return (
     <>
       {/** Title */}
@@ -205,7 +210,12 @@ export const CounterPartyInformation = () => {
         style={{ marginTop: "40px" }}
         className="d-flex flex-row align-items-end justify-content-end"
       >
-        <button className="button text-white fw-semibold">Save & Next</button>
+        <button
+          onClick={() => dispatch(nextStep())}
+          className="button text-white fw-semibold"
+        >
+          Save & Next
+        </button>
       </div>
       {/** Button */}
 
@@ -277,17 +287,29 @@ export const CounterPartyInformation = () => {
                     <tr>
                       <td>1</td>
                       <td>Business Type</td>
-                      <td>Trash Bin</td>
+                      <td>
+                        <button className="trash-button">
+                          <i className="bi bi-trash fs-5 text-danger"></i>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
                       <td>2</td>
                       <td>Business Type</td>
-                      <td>Trash Bin</td>
+                      <td>
+                        <button className="trash-button">
+                          <i className="bi bi-trash fs-5 text-danger"></i>
+                        </button>
+                      </td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Business Type</td>
-                      <td>Trash Bin</td>
+                      <td>
+                        <button className="trash-button">
+                          <i className="bi bi-trash fs-5 text-danger"></i>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

@@ -20,12 +20,20 @@
   padding: 4px 12px 4px 12px;
 }
 
+.text-current {
+  color: rgba(35, 94, 106, 1);
+}
+
+.text-finish {
+  color: #05c392;
+}
+
 .stepper-child {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  color: #05c392;
+  color: black;
   padding: 0 0;
 }
 
@@ -34,6 +42,13 @@
   height: 0px;
   border: 1px #05c392 solid;
 }
+
+.stepper-child-bar-black {
+  width: 157px;
+  height: 0px;
+  border: 1px black solid;
+}
+
 /* Form steppers */
 
 .general-form-container {
@@ -146,6 +161,22 @@ th {
   text-align: left;
   padding: 8px;
 }
+
+.trash-button {
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px 4px;
+}
+
+.trash-button:hover {
+  background-color: rgba(249, 96, 142, 1);
+}
+
+.trash-button i:hover {
+  color: white !important;
+}
+
 /* Table */
 /* Model */
 

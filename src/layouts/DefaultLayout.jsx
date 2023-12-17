@@ -1,28 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import FilledSvg from "../../public/assets/Filled.svg";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-
-const steps = [
-  "General Information",
-  "Counterparty Information",
-  "Life Cycle",
-  "Payment Information",
-];
+import { useStepper } from "../components/useStepper";
+import { useSelector } from "react-redux";
 
 export const DefaultLayout = () => {
   //
-  const totalRegisterSteps = steps.map((stp) => {
-    return (
-      <div key={stp} className="steppers ">
-        <div className="stepper-child">
-          <img src={FilledSvg} alt="My SVG" />
-          <span className="stepper-child-bar"></span>
-        </div>
-        <div className="text-black">{stp}</div>
-      </div>
-    );
-  });
+  const step = useSelector((state) => state.step.step);
+
+  // Custom stepper hook
+  const totalRegisterSteps = useStepper(step);
 
   return (
     <div className="container-whp d-flex flex-column mx-auto">
