@@ -9,13 +9,14 @@ const steps = [
 ];
 
 export const useStepper = (step) => {
+  //
   const totalRegisterSteps = steps.map((stp, index) => {
     return (
       <div key={stp} className="steppers ">
         <div className="stepper-child">
           {index === step && (
             <>
-              <i className="bi fs-5 fw-bold text-current bi-dash-circle"></i>
+              <i className="bi fs-5 text-current bi-dash-circle"></i>
               <span className="stepper-child-bar-black"></span>
             </>
           )}
@@ -30,7 +31,7 @@ export const useStepper = (step) => {
           {index > step && (
             <>
               <i className="bi fs-5 fw-semibold bi-circle"></i>
-              <span className="stepper-child-bar-black"></span>
+              <span className="stepper-child-bar-gray"></span>
             </>
           )}
         </div>

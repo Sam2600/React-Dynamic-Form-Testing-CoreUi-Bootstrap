@@ -1,81 +1,138 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import LoginPhoto from "../../public/assets/Group 17.png";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 import MYT from "../../public/assets/MYT.png";
-import { Link, NavLink } from 'react-router-dom';
+import LoginPhoto from "../../public/assets/Group 17.png";
 
 export const Login = () => {
+  // UseForm hook
+  const { register, formState, handleSubmit, reset } = useForm();
 
-    return (
+  // Useful Form states
+  const { errors, submitCount, isSubmitting, isSubmitSuccessful } = formState;
 
-        <section>
+  // handle submit
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
-            <div className="container">
+  // Error messages
+  let errMessages;
+  if (errors.user_name || errors.password) {
+    errMessages = (
+      <div className="bg-danger rounded px-3 py-2 d-flex flex-column">
+        <p className="text-white my-1">{errors?.user_name?.message}</p>
+        <p className="text-white my-1">{errors?.password?.message}</p>
+      </div>
+    );
+  }
 
-                <div className="d-flex justify-content-between align-items-center ">
+  // while submitting, display loading
+  isSubmitting && <div>Loading...</div>;
 
-                    {/** Login Form */}
-                    <div className="col-12 col-lg-5 col-md-7">
-                        
-                        <div className="p-2 p-md-4 p-xl-5">
+  // after submit success, reset the form
+  isSubmitSuccessful && reset();
 
-                            <div className="row">
-                                <div className="col-12 g-5">
-                                    <div className="col-md-6 offset-md-4">
-                                        <img src={MYT} alt="" />
-                                    </div>
-                                    <div className="col-md-8 offset-md-3">
-                                        <p>Contract Management System</p>
-                                    </div>
-                                </div>
-                            </div>
+  return (
+    <div
+      style={{ marginTop: "70px" }}
+      className=" container d-flex justify-content-between height580 width1200 align-items-center p-0"
+    >
+      {/** Login Form */}
+      <div className=" d-flex flex-column col-xl-4 col-lg-5 col-md-6 width464 height580">
+        {/** Form title */}
+        <div className="d-flex flex-column login-form-title">
+          <div className="MYT-image">
+            <img src={MYT} alt="" />
+          </div>
+          <p className="mt-3 mx-auto">Contract Management System</p>
+        </div>
+        {/** Form title */}
 
-                            <div className='shadow-lg p-4'>
+        {errMessages}
 
-                                <div className='mb-5 my-0'>
-                                    <h5 className='fw-bold'>Sign in to account</h5>
-                                    <p>Enter your username & password to login</p>
-                                </div>
+        {/** Form Container */}
+        <div style={{ marginTop: "27px" }} className=" p32 shadow-lg">
+          {/** Form Header */}
+          <div className="login-form-header">
+            <h5 className="fw-semibold">Sign in to account</h5>
+            <p>Enter your username & password to login</p>
+          </div>
+          {/** Form Header */}
 
-                                <form action="">
-                                    <div className="row gy-3 gy-md-4 overflow-hidden">
-                                        <div className="col-12">
-                                            <label htmlFor="email" className="form-label">Email <span className="text-danger">*</span></label>
-                                            <input type="email" className="form-control" name="email" id="email" placeholder="name@example.com" />
-                                        </div>
-                                        <div className="col-12">
-                                            <label htmlFor="password" className="form-label">Password <span className="text-danger">*</span></label>
-                                            <input type="password" className="form-control" name="password" id="password" />
-                                        </div>
-                                        <div className="col-12 text-end">
-                                            <NavLink style={{ textDecoration: "none", color: "#235E6A" }}>
-                                                Forget Password?
-                                            </NavLink>
-                                        </div>
-                                        <div className="col-12">
-                                            <div className="d-grid">
-                                                <button className="btn login-Btn btn-primary" type="button">Log in now</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                    {/** Login Form */}
-
-                    {/** LoginForm Photo */}
-                    <div className="col-lg-6 col-md-6">
-                        <div className='p-3 p-md-4 p-xl-5'>
-                            <img className="img-fluid rounded mx-auto my-4" loading="lazy" src={LoginPhoto} width="100%" height="100%" alt="LoginPhoto" />
-                        </div>
-                    </div>
-                    {/** LoginForm Photo */}
-
+          {/** Form */}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="d-flex flex-column gap-3 overflow-hidden">
+              <div className="login-input-container">
+                <label htmlFor="user_name" className="form-label">
+                  Username
+                </label>
+                <input
+                  {...register("user_name", {
+                    required: {
+                      value: true,
+                      message: "Username is required",
+                    },
+                  })}
+                  style={{ height: "46px" }}
+                  type="text"
+                  className="form-control"
+                  id="user_name"
+                  placeholder="Enter your username"
+                />
+              </div>
+              <div className="login-input-container">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Password is required",
+                    },
+                  })}
+                  style={{ height: "46px" }}
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Enter your password"
+                />
+              </div>
+              <div className="text-end">
+                <NavLink
+                  to="/forgot-password"
+                  style={{ textDecoration: "none", color: "#235E6A" }}
+                >
+                  Forgot Password?
+                </NavLink>
+              </div>
+              <div className="col-12">
+                <div className="d-grid">
+                  <button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className="btn text-white login-button"
+                  >
+                    Sign in
+                  </button>
                 </div>
+              </div>
             </div>
-        </section>
-    )
+          </form>
+          {/** Form */}
+        </div>
+        {/** Form Container */}
+      </div>
+      {/** Login Form */}
 
-}
+      {/** LoginForm Photo */}
+      <div className="col-lg-6 col-md-6 col-sm-12 height580">
+        <img className="login-photo" src={LoginPhoto} alt="LoginPhoto" />
+      </div>
+      {/** LoginForm Photo */}
+    </div>
+  );
+};
