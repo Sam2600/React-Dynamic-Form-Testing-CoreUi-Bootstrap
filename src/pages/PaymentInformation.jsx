@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { nextStep, prevStep } from "../redux/features/step/stepSlice";
 import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { nextStep, prevStep } from "../redux/features/step/stepSlice";
 
-export const CounterPartyInformation = () => {
+export const PaymentInformation = () => {
+  //
   const dispatch = useDispatch();
 
   return (
@@ -13,13 +15,12 @@ export const CounterPartyInformation = () => {
         style={{ height: "38px" }}
         className="d-flex align-items-center mb-4"
       >
-        <h5 className="fw-semibold text-black">CounterParty Information</h5>
+        <h5 className="fw-semibold text-black">Payment Information</h5>
       </div>
       {/** Title */}
 
       {/** Form */}
       <div className="d-flex flex-column ">
-        {/** */}
         <div className="d-flex flex-row justify-content-between">
           <div
             style={{ height: "74px", marginBottom: "16px" }}
@@ -141,64 +142,74 @@ export const CounterPartyInformation = () => {
         </div>
 
         <div className="d-flex flex-row justify-content-between">
-          <div className="d-flex flex-column justify-content-between">
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
-            >
-              <label htmlFor="related_term" className="form-label fw-semibold">
-                Related Term
-              </label>
-              <input
-                type="text"
-                className="form-control height43 w-100"
-                id="related_term"
-                placeholder="Enter related term"
-              />
-            </div>
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
-            >
-              <label
-                htmlFor="contract_total_amount"
-                className="form-label fw-semibold"
-              >
-                Contract Total Amount
-              </label>
-              <input
-                type="text"
-                className="form-control height43 w-100"
-                id="contract_total_amount"
-                placeholder="Enter Contract Total Amount"
-              />
-            </div>
-          </div>
-
           <div
             style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width677"
+            className="gap-1 width300"
+          >
+            <label htmlFor="related_term" className="form-label fw-semibold">
+              Related Term
+            </label>
+            <input
+              type="text"
+              className="form-control height43 w-100"
+              id="related_term"
+              placeholder="Enter related term"
+            />
+          </div>
+          <div
+            style={{ height: "74px", marginBottom: "16px" }}
+            className="gap-1 width300"
+          >
+            <label
+              htmlFor="contract_total_amount"
+              className="form-label fw-semibold"
+            >
+              Contract Total Amount
+            </label>
+            <input
+              type="text"
+              className="form-control height43 w-100"
+              id="contract_total_amount"
+              placeholder="Enter Contract Total Amount"
+            />
+          </div>
+          <div
+            style={{ height: "74px", marginBottom: "16px" }}
+            className="gap-1 width300"
           >
             <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
               Signer (On behave of MYT)
             </label>
             <input
               type="text"
-              className="form-control height133 w-100"
+              className="form-control height43 w-100"
               id="signer_obh_myt"
               placeholder="Enter signer"
             />
           </div>
         </div>
 
-        {/** */}
+        <div
+          style={{ height: "74px", marginBottom: "16px" }}
+          className="gap-1 width300"
+        >
+          <label htmlFor="signer_position" className="form-label fw-semibold">
+            Signer Position
+          </label>
+          <input
+            type="text"
+            className="form-control height43 w-100"
+            id="signer_position"
+            placeholder="Enter signer position"
+          />
+        </div>
       </div>
       {/** Form */}
 
       {/** Button */}
       <div
         style={{ marginTop: "40px" }}
-        className="d-flex gap-3  flex-row align-items-end justify-content-end"
+        className="d-flex gap-3 flex-row align-items-end justify-content-end"
       >
         <button
           onClick={() => dispatch(prevStep())}
@@ -208,10 +219,13 @@ export const CounterPartyInformation = () => {
         </button>
 
         <button
-          onClick={() => dispatch(nextStep())}
+          onClick={() => {
+            dispatch(nextStep());
+            // <Navigate to="/counterPartyInformation" />;
+          }}
           className="button text-white fw-semibold"
         >
-          Save & Next
+          Save
         </button>
       </div>
       {/** Button */}

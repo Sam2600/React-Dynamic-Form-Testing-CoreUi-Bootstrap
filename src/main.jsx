@@ -7,13 +7,13 @@ import ReactDOM from "react-dom/client";
 import { Login } from "./pages/Login";
 import { DefaultLayout } from "./layouts/DefaultLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CounterPartyInformation } from "./pages/CounterPartyInformation";
 
 // Bootstraps and css
 import "./index.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { ContractAddPages } from "./pages/ContractAddPages";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Route>
 
         <Route path="/add-contract" element={<DefaultLayout />}>
-          <Route index element={<CounterPartyInformation />} />
+          <Route index element={<ContractAddPages />} />
         </Route>
       </Routes>
     </BrowserRouter>

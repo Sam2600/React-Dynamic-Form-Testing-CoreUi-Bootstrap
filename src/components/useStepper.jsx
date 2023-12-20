@@ -35,11 +35,8 @@ export const useStepper = (step) => {
             </>
           )}
         </div>
-
         {index === step && <div className="fw-semibold text-bold">{stp}</div>}
-
         {index < step && <div className="fw-semibold text-finish">{stp}</div>}
-
         {index > step && <div className="fw-semibold text-dark">{stp}</div>}
       </div>
     );
