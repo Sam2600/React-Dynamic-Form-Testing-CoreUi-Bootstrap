@@ -86,10 +86,9 @@
 }
 
 .prev-button {
-
-  color: #235E6A;
-  background-color: #E9EFF0;
-  border-color: #235E6A;
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
 
   width: 125px;
   height: 44px;
@@ -106,7 +105,7 @@
   width: 677px;
 }
 
-.width471{
+.width471 {
   width: 471px;
 }
 
@@ -120,6 +119,13 @@
 
 .gap12 {
   gap: 12px;
+}
+
+.date-delete-button {
+  border: none;
+  width: 43px;
+  height: 43px;
+  border-radius: 4px 4px;
 }
 
 /* Model */
@@ -163,36 +169,36 @@
   height: 74px;
 }
 
-.addBtn{
+.addBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width:  107px;
+  width: 107px;
   height: 44px;
   padding-top: 6px;
   padding-bottom: 6px;
   padding-right: 16px;
   padding-left: 16px;
   border-radius: 8px;
-  color: #235E6A ;
-  background-color: #E9EFF0;
-  border-color: #235E6A;
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
 }
 
-.addDateBtn{
+.addDateBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width:  147px;
+  width: 147px;
   height: 44px;
   padding-top: 6px;
   padding-bottom: 6px;
   padding-right: 16px;
   padding-left: 16px;
   border-radius: 8px;
-  color: #235E6A ;
-  background-color: #E9EFF0;
-  border-color: #235E6A;
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
 }
 
 .addDateBtn span {
@@ -201,7 +207,6 @@
   margin-bottom: 10px;
   margin-right: 12px;
 }
-
 
 /* Table */
 .table-container {

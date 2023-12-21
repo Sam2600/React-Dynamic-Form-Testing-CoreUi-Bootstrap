@@ -1,9 +1,15 @@
 /* eslint-disable no-unused-vars */
+
+/**
+ * Change the remind dates as array at the initial state and looping it from the start.
+ * Then g with field array.
+ */
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { addlifeCycle } from "../redux/features/contract/contractSlice";
 
 export const LifeCycle = () => {
@@ -17,7 +23,7 @@ export const LifeCycle = () => {
     contract_term,
     prior_notice_term,
     remind_email,
-    remind_date,
+    remind_dates,
   } = lifeCycle;
 
   // UseForm hook
@@ -27,9 +33,11 @@ export const LifeCycle = () => {
       contract_term: contract_term,
       prior_notice_term: prior_notice_term,
       remind_email: remind_email,
-      remind_date: remind_date,
+      remind_dates: remind_dates,
     },
   });
+
+  console.log(remind_dates);
 
   // Useful Form states
   const {
@@ -40,6 +48,43 @@ export const LifeCycle = () => {
     isSubmitSuccessful,
     isValid,
   } = formState;
+
+  // Preparing for dynamic field array with the hook
+  const { fields, append, remove, insert } = useFieldArray({
+    name: "remind_dates", // This is like registering which field is gonna used as dynamic field
+    control,
+  });
+
+  // Remind dates
+  let dates = fields.map((field, index) => (
+    <div className="d-flex flex-row align-items-center gap-3" key={field.id}>
+      <div
+        style={{ height: "74px", marginBottom: "16px" }}
+        className="gap-1 width300"
+      >
+        <label htmlFor="remind_dates" className="form-label fw-semibold">
+          Remind Date
+        </label>
+        <input
+          type="date"
+          className="form-control height43 w-100"
+          id="remind_dates"
+          placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
+          {...register(`remind_dates.${field.id}.date`, {
+            required: {
+              value: true,
+              message: "Remind date is required",
+            },
+          })}
+        />
+      </div>
+      <div style={{ marginTop: "16px" }}>
+        <button onClick={() => remove(index)} className="date-delete-button">
+          <i className="bi bi-trash fs-2 text-danger"></i>
+        </button>
+      </div>
+    </div>
+  ));
 
   // handle onSubmit
   const onSubmit = (data) => {
@@ -176,33 +221,46 @@ export const LifeCycle = () => {
               />
             </div>
           </div>
-          <div className="d-flex flex-row align-items-center gap-3 ">
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
-            >
-              <label htmlFor="remind_date" className="form-label fw-semibold">
-                Related Date
-              </label>
-              <input
-                type="date"
-                className="form-control height43 w-100"
-                id="remind_date"
-                placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
-                {...register("remind_date")}
-              />
-            </div>
-            <div style={{ marginTop: "16px" }}>
-              <button
-                style={{ fontSize: "14px" }}
-                className="addDateBtn fw-semibold"
+
+          <div className="d-flex flex-column gap-3 ">
+            {dates}
+
+            <div className="d-flex flex-row align-items-center gap-3">
+              <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                className="gap-1 width300"
               >
-                {" "}
-                <span className="fs-1 p-0">+</span> Add Date
-              </button>
+                <label
+                  htmlFor="remind_dates"
+                  className="form-label fw-semibold"
+                >
+                  Remind Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control height43 w-100"
+                  id="remind_dates"
+                  placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
+                  {...register("remind_dates")}
+                />
+              </div>
+              <div style={{ marginTop: "16px" }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    append({ date: null });
+                  }}
+                  style={{ fontSize: "14px" }}
+                  className="addDateBtn fw-semibold"
+                >
+                  {" "}
+                  <span className="fs-1 p-0">+</span> Add Date
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
         {/** Button */}
         <div
           style={{ marginTop: "40px" }}

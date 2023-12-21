@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     generalInformation: {},
     counterPartyInformation: {},
-    lifeCycle: {},
+    lifeCycle: {
+        remind_dates: [],
+    },
     paymentInformation: {}
 }
 
