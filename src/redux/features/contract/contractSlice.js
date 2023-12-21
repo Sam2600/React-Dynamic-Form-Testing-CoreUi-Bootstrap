@@ -1,37 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    generalInformation: {
-        contractTitle: "",
-        contractType: "",
-        relevantDepartment: "",
-        startDate: null,
-        endDate: null,
-        contractNumber: "",
-        relatedItem: "",
-        GIsigner: "",
-        GIsignerPosition: ""
-    },
-    counterPartyInformation: {
-        counterParty: "",
-        CPsigner: "",
-        CPsignerPosition: "",
-        email: "",
-        contractPersonPh: "",
-        contractPersonPosition: "",
-        address: "",
-        phone: ""
-    },
+    generalInformation: {},
+    counterPartyInformation: {},
     lifeCycle: {},
     paymentInformation: {}
 }
 
 export const contractSlice = createSlice({
+    
     name: 'contract',
     initialState,
     reducers: {
 
-        
+        addGeneralInformation: (state, action) => {
+            console.log(action.payload);
+            state.generalInformation = action.payload;
+        },
+
+        addcounterPartyInformation: (state, action) => {
+            console.log(action.payload);
+            state.counterPartyInformation = action.payload;
+        },
+
+        addlifeCycle: (state, action) => {
+            console.log(action.payload);
+            state.lifeCycle = action.payload;
+        },
+
+        addpaymentInformation: (state, action) => {
+            console.log(action.payload);
+            state.paymentInformation = action.payload;
+        }
     
     },
 })

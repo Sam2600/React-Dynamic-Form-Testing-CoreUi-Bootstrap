@@ -85,12 +85,29 @@
   gap: 12px;
 }
 
+.prev-button {
+
+  color: #235E6A;
+  background-color: #E9EFF0;
+  border-color: #235E6A;
+
+  width: 125px;
+  height: 44px;
+  padding: 8px, 16px, 8px, 16px;
+  border-radius: 8px;
+  gap: 12px;
+}
+
 .width300 {
   width: 300px;
 }
 
 .width677 {
   width: 677px;
+}
+
+.width471{
+  width: 471px;
 }
 
 .height133 {
@@ -145,6 +162,30 @@
   width: 414px;
   height: 74px;
 }
+
+.addDateBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:  107px;
+  height: 44px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 16px;
+  padding-left: 16px;
+  border-radius: 8px;
+  color: #235E6A ;
+  background-color: #E9EFF0;
+  border-color: #235E6A;
+}
+
+.addDateBtn span {
+  padding: 0;
+  font-size: 3rem;
+  margin-bottom: 10px;
+  margin-right: 12px;
+}
+
 
 /* Table */
 .table-container {

@@ -3,10 +3,22 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { nextStep } from "../redux/features/step/stepSlice";
-import { Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 export const GeneralInformation = () => {
   const dispatch = useDispatch();
+
+  // UseForm hook 
+  const { register, formState, control, handleSubmit, watch, reset } = useForm({});
+
+  // Useful Form states
+  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+
+   // handle onSubmit
+   const onSubmit = (data) => {
+    console.log(data);
+    //dispatch(nextStep());
+  }
 
   return (
     <>
@@ -20,208 +32,230 @@ export const GeneralInformation = () => {
       {/** Title */}
 
       {/** Form */}
-      <div className="d-flex flex-column ">
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="contract_title" className="form-label fw-semibold">
-              Contract Title <span className="text-danger">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_title"
-              placeholder="Enter Contract Title"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="exampleFormControlInput1"
-              className="form-label fw-semibold"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="d-flex flex-column ">
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
             >
-              Contract Type <span className="text-danger">*</span>
-            </label>
-            <div className="d-flex flex-row gap12">
+              <label htmlFor="contract_title" className="form-label fw-semibold">
+                Contract Title <span className="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="contract_title"
+                placeholder="Enter Contract Title"
+                {...register("contract_title", {
+                        required: {
+                        value: true,
+                        message: "Contract title is required"
+                      },
+                  })
+                }
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="contract_type"
+                className="form-label fw-semibold"
+              >
+                Contract Type <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row gap12">
+                <select
+                  id="contract_type"
+                  className="form-select height43"
+                  aria-label="Default select example"
+                  {...register("contract_type", {
+                    required: {
+                      value: true,
+                      message: "Contract type is required"
+                    },
+                  })
+                }
+                >
+                  <option defaultValue={0}>Select Contract Type</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  type="button"
+                  className="addContract"
+                  style={{
+                    border: "2px solid #ddd",
+                    borderRadius: "8px",
+                    borderColor: "#235E6A",
+                    width: "40px",
+                    height: "40px",
+                    paddingBottom: "4px",
+                    fontSize: "21px",
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="contract_title"
+                className="form-label fw-semibold"
+              >
+                Relevant Department <span className="text-danger">*</span>
+              </label>
               <select
+                id="contract_title"
                 className="form-select height43"
                 aria-label="Default select example"
+                {...register("contract_title", {
+                    required: {
+                      value: true,
+                      message: "Contract title is required"
+                    },
+                  })
+                }
               >
-                <option defaultValue={0}>Select Contract Type</option>
+                <option defaultValue={0}>Select relevant department</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
-
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                type="button"
-                className="addContract"
-                style={{
-                  border: "2px solid #ddd",
-                  borderRadius: "8px",
-                  borderColor: "#235E6A",
-                  width: "40px",
-                  height: "40px",
-                  paddingBottom: "4px",
-                  fontSize: "21px",
-                }}
-              >
-                +
-              </button>
             </div>
           </div>
-          <div
+
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="start_date" className="form-label fw-semibold">
+                Start Date <span className="text-danger">*</span>
+              </label>
+              <input
+                type="date"
+                className="form-control height43"
+                id="start_date"
+                {...register("start_date", {
+                    required: {
+                      value: true,
+                      message: "Start date is required"
+                    },
+                  })
+                }
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="end_date" className="form-label fw-semibold">
+                End Date <span className="text-danger">*</span>
+              </label>
+              <input
+                type="date"
+                className="form-control height43"
+                id="end_date"
+                {...register("end_date", {
+                    required: {
+                      value: true,
+                      message: "End date is required"
+                    },
+                  })
+                }
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="contract_number" className="form-label fw-semibold">
+                Contract Number
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="contract_number"
+                placeholder="MYT-FNF-0001-LA-2023"
+                {...register("contract_number")}
+              />
+            </div>
+          </div>
+
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="related_term" className="form-label fw-semibold">
+                Related Term
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="related_term"
+                placeholder="Enter related term"
+                {...register("related_term")}
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
+                Signer (On behave of MYT)
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="signer_obh_myt"
+                placeholder="Enter signer"
+                {...register("signer_obh_myt")}
+              />
+            </div>
+            <div
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
           >
-            <label
-              htmlFor="exampleFormControlInput1"
-              className="form-label fw-semibold"
-            >
-              Relevant Department <span className="text-danger">*</span>
+            <label htmlFor="signer_position" className="form-label fw-semibold">
+              Signer Position
             </label>
-            <select
-              className="form-select height43"
-              aria-label="Default select example"
-            >
-              <option defaultValue={0}>Select relevant department</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+            <input
+              type="text"
+              className="form-control height43 w-100"
+              id="signer_position"
+              placeholder="Enter signer position"
+              {...register("signer_position")}
+            />
+            </div>
           </div>
         </div>
 
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="start_date" className="form-label fw-semibold">
-              Start Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="start_date"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="end_date" className="form-label fw-semibold">
-              End Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="end_date"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="contract_number" className="form-label fw-semibold">
-              Contract Number
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_number"
-              placeholder="MYT-FNF-0001-LA-2023"
-            />
-          </div>
-        </div>
-
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="related_term" className="form-label fw-semibold">
-              Related Term
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="related_term"
-              placeholder="Enter related term"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="contract_total_amount"
-              className="form-label fw-semibold"
-            >
-              Contract Total Amount
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_total_amount"
-              placeholder="Enter Contract Total Amount"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
-              Signer (On behave of MYT)
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="signer_obh_myt"
-              placeholder="Enter signer"
-            />
-          </div>
-        </div>
-
+        {/** Button */}
         <div
-          style={{ height: "74px", marginBottom: "16px" }}
-          className="gap-1 width300"
+          style={{ marginTop: "40px" }}
+          className="d-flex flex-row align-items-end justify-content-end"
         >
-          <label htmlFor="signer_position" className="form-label fw-semibold">
-            Signer Position
-          </label>
-          <input
-            type="text"
-            className="form-control height43 w-100"
-            id="signer_position"
-            placeholder="Enter signer position"
-          />
+          <button
+            type="submit"
+            className="button text-white fw-semibold"
+          >
+            Save & Next
+          </button>
         </div>
-      </div>
+        {/** Button */}
+      </form>
       {/** Form */}
-
-      {/** Button */}
-      <div
-        style={{ marginTop: "40px" }}
-        className="d-flex flex-row align-items-end justify-content-end"
-      >
-        <button
-          onClick={() => {
-            dispatch(nextStep());
-            // <Navigate to="/counterPartyInformation" />;
-          }}
-          className="button text-white fw-semibold"
-        >
-          Save & Next
-        </button>
-      </div>
-      {/** Button */}
 
       {/** Hidden model */}
       <div

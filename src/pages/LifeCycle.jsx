@@ -22,126 +22,102 @@ export const LifeCycle = () => {
       {/** Form */}
       <div className="d-flex flex-column ">
         <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="contract_title" className="form-label fw-semibold">
-              Contract Title <span className="text-danger">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_title"
-              placeholder="Enter Contract Title"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="exampleFormControlInput1"
-              className="form-label fw-semibold"
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
             >
-              Contract Type <span className="text-danger">*</span>
-            </label>
-            <div className="d-flex flex-row gap12">
-              <select
-                className="form-select height43"
-                aria-label="Default select example"
+              <label
+                htmlFor="exampleFormControlInput1"
+                className="form-label fw-semibold"
               >
-                <option defaultValue={0}>Select Contract Type</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+                Life Cycle Type <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row gap12">
+                <select
+                  className="form-select height43"
+                  aria-label="Default select example"
+                >
+                  <option defaultValue={0}>Select life cycle type</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
 
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                type="button"
-                className="addContract"
-                style={{
-                  border: "2px solid #ddd",
-                  borderRadius: "8px",
-                  borderColor: "#235E6A",
-                  width: "40px",
-                  height: "40px",
-                  paddingBottom: "4px",
-                  fontSize: "21px",
-                }}
-              >
-                +
-              </button>
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  type="button"
+                  className="addContract"
+                  style={{
+                    border: "2px solid #ddd",
+                    borderRadius: "8px",
+                    borderColor: "#235E6A",
+                    width: "40px",
+                    height: "40px",
+                    paddingBottom: "4px",
+                    fontSize: "21px",
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="contract_term" className="form-label fw-semibold">
+                Contract Term <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row align-items-center gap-2">
+                <input
+                  type="text"
+                  className="form-control height43 w-100"
+                  id="contract_term"
+                  placeholder="Enter contract term"
+                />
+                <span className="fw-semibold ">Months</span>
+              </div>
+              
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="prior_notice_term" className="form-label fw-semibold">
+                Prior notice term <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row align-items-center gap-2">
+                <input
+                  type="text"
+                  className="form-control height43 w-100"
+                  id="prior_notice_term"
+                  placeholder="Enter prior notice term"
+                />
+                <span className="fw-semibold ">Days</span>
+              </div>
+              
             </div>
           </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="exampleFormControlInput1"
-              className="form-label fw-semibold"
-            >
-              Relevant Department <span className="text-danger">*</span>
-            </label>
-            <select
-              className="form-select height43"
-              aria-label="Default select example"
-            >
-              <option defaultValue={0}>Select relevant department</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-
+        
         <div className="d-flex flex-row justify-content-between">
           <div
             style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
+            className="gap-1 w-100"
           >
-            <label htmlFor="start_date" className="form-label fw-semibold">
-              Start Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="start_date"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="end_date" className="form-label fw-semibold">
-              End Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="end_date"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="contract_number" className="form-label fw-semibold">
-              Contract Number
+            <label htmlFor="remind_email" className="form-label fw-semibold">
+              Remind email
             </label>
             <input
               type="text"
               className="form-control height43 w-100"
-              id="contract_number"
-              placeholder="MYT-FNF-0001-LA-2023"
+              id="remind_email"
+              placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
             />
           </div>
         </div>
 
-        <div className="d-flex flex-row justify-content-between">
+        <div className="d-flex flex-row align-items-center gap-3 ">
           <div
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
@@ -156,52 +132,9 @@ export const LifeCycle = () => {
               placeholder="Enter related term"
             />
           </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="contract_total_amount"
-              className="form-label fw-semibold"
-            >
-              Contract Total Amount
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_total_amount"
-              placeholder="Enter Contract Total Amount"
-            />
+          <div style={{marginTop: "16px"}}>
+                <button style={{fontSize:"14px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add Date</button>
           </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
-              Signer (On behave of MYT)
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="signer_obh_myt"
-              placeholder="Enter signer"
-            />
-          </div>
-        </div>
-
-        <div
-          style={{ height: "74px", marginBottom: "16px" }}
-          className="gap-1 width300"
-        >
-          <label htmlFor="signer_position" className="form-label fw-semibold">
-            Signer Position
-          </label>
-          <input
-            type="text"
-            className="form-control height43 w-100"
-            id="signer_position"
-            placeholder="Enter signer position"
-          />
         </div>
       </div>
       {/** Form */}
@@ -213,7 +146,7 @@ export const LifeCycle = () => {
       >
         <button
           onClick={() => dispatch(prevStep())}
-          className="button text-white fw-semibold"
+          className="prev-button fw-semibold"
         >
           Previous
         </button>
@@ -221,7 +154,6 @@ export const LifeCycle = () => {
         <button
           onClick={() => {
             dispatch(nextStep());
-            // <Navigate to="/counterPartyInformation" />;
           }}
           className="button text-white fw-semibold"
         >

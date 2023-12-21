@@ -25,13 +25,13 @@ export const CounterPartyInformation = () => {
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
           >
-            <label htmlFor="contract_title" className="form-label fw-semibold">
-              Contract Title <span className="text-danger">*</span>
+            <label htmlFor="counter_party" className="form-label fw-semibold">
+              Counterparty <span className="text-danger">*</span>
             </label>
             <input
               type="text"
               className="form-control height43 w-100"
-              id="contract_title"
+              id="counter_party"
               placeholder="Enter Contract Title"
             />
           </div>
@@ -40,60 +40,34 @@ export const CounterPartyInformation = () => {
             className="gap-1 width300"
           >
             <label
-              htmlFor="exampleFormControlInput1"
+              htmlFor="signer"
               className="form-label fw-semibold"
             >
-              Contract Type <span className="text-danger">*</span>
+              Signer (On behave of Counterparty)
             </label>
-            <div className="d-flex flex-row gap12">
-              <select
-                className="form-select height43"
-                aria-label="Default select example"
-              >
-                <option defaultValue={0}>Select Contract Type</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                type="button"
-                className="addContract"
-                style={{
-                  border: "2px solid #ddd",
-                  borderRadius: "8px",
-                  borderColor: "#235E6A",
-                  width: "40px",
-                  height: "40px",
-                  paddingBottom: "4px",
-                  fontSize: "21px",
-                }}
-              >
-                +
-              </button>
-            </div>
+            <input
+              type="text"
+              className="form-control height43"
+              id="signer"
+              placeholder="Enter signer"
+            />
           </div>
           <div
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
           >
             <label
-              htmlFor="exampleFormControlInput1"
+              htmlFor="signer_position"
               className="form-label fw-semibold"
             >
-              Relevant Department <span className="text-danger">*</span>
+             Signer Position <span className="text-danger">*</span>
             </label>
-            <select
-              className="form-select height43"
-              aria-label="Default select example"
-            >
-              <option defaultValue={0}>Select relevant department</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+            <input
+              type="text"
+              className="form-control height43"
+              id="signer_position"
+              placeholder="Enter signer position"
+            />
           </div>
         </div>
 
@@ -102,13 +76,14 @@ export const CounterPartyInformation = () => {
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
           >
-            <label htmlFor="start_date" className="form-label fw-semibold">
-              Start Date <span className="text-danger">*</span>
+            <label htmlFor="email" className="form-label fw-semibold">
+             Email <span className="text-danger">*</span>
             </label>
             <input
-              type="date"
+              type="email"
               className="form-control height43"
-              id="start_date"
+              id="email"
+              placeholder="Enter email address"
             />
           </div>
           <div
@@ -116,12 +91,13 @@ export const CounterPartyInformation = () => {
             className="gap-1 width300"
           >
             <label htmlFor="end_date" className="form-label fw-semibold">
-              End Date <span className="text-danger">*</span>
+              Contract Person Phone <span className="text-danger">*</span>
             </label>
             <input
-              type="date"
+              type="text"
               className="form-control height43"
-              id="end_date"
+              id="contrat_person"
+              placeholder="Enter phone number"
             />
           </div>
           <div
@@ -129,13 +105,13 @@ export const CounterPartyInformation = () => {
             className="gap-1 width300"
           >
             <label htmlFor="contract_number" className="form-label fw-semibold">
-              Contract Number
+              Position of Contract Person
             </label>
             <input
               type="text"
               className="form-control height43 w-100"
               id="contract_number"
-              placeholder="MYT-FNF-0001-LA-2023"
+              placeholder="Enter position"
             />
           </div>
         </div>
@@ -146,14 +122,14 @@ export const CounterPartyInformation = () => {
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="related_term" className="form-label fw-semibold">
-                Related Term
+              <label htmlFor="contract_person" className="form-label fw-semibold">
+                Contract Person
               </label>
               <input
                 type="text"
                 className="form-control height43 w-100"
-                id="related_term"
-                placeholder="Enter related term"
+                id="contract_person"
+                placeholder="Enter contract person name"
               />
             </div>
             <div
@@ -161,16 +137,16 @@ export const CounterPartyInformation = () => {
               className="gap-1 width300"
             >
               <label
-                htmlFor="contract_total_amount"
+                htmlFor="phone"
                 className="form-label fw-semibold"
               >
-                Contract Total Amount
+                Phone
               </label>
               <input
                 type="text"
                 className="form-control height43 w-100"
-                id="contract_total_amount"
-                placeholder="Enter Contract Total Amount"
+                id="phone"
+                placeholder="Enter phone numnber"
               />
             </div>
           </div>
@@ -179,14 +155,14 @@ export const CounterPartyInformation = () => {
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width677"
           >
-            <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
-              Signer (On behave of MYT)
+            <label htmlFor="address" className="form-label fw-semibold">
+              Address
             </label>
             <input
               type="text"
               className="form-control height133 w-100"
-              id="signer_obh_myt"
-              placeholder="Enter signer"
+              id="address"
+              placeholder="Enter address"
             />
           </div>
         </div>
@@ -202,7 +178,7 @@ export const CounterPartyInformation = () => {
       >
         <button
           onClick={() => dispatch(prevStep())}
-          className="button text-white fw-semibold"
+          className="prev-button fw-semibold"
         >
           Previous
         </button>

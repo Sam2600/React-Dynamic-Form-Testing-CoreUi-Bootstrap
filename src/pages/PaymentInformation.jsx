@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
 
 export const PaymentInformation = () => {
@@ -26,14 +25,14 @@ export const PaymentInformation = () => {
             style={{ height: "74px", marginBottom: "16px" }}
             className="gap-1 width300"
           >
-            <label htmlFor="contract_title" className="form-label fw-semibold">
-              Contract Title <span className="text-danger">*</span>
+            <label htmlFor="total_contract_amount" className="form-label fw-semibold">
+              Total Contract Amount <span className="text-danger">*</span>
             </label>
             <input
               type="text"
               className="form-control height43 w-100"
-              id="contract_title"
-              placeholder="Enter Contract Title"
+              id="total_contract_amount"
+              placeholder="Enter total contract amount"
             />
           </div>
           <div
@@ -41,89 +40,23 @@ export const PaymentInformation = () => {
             className="gap-1 width300"
           >
             <label
-              htmlFor="exampleFormControlInput1"
+              htmlFor="payment_type"
               className="form-label fw-semibold"
             >
-              Contract Type <span className="text-danger">*</span>
+              Payment Type <span className="text-danger">*</span>
             </label>
             <div className="d-flex flex-row gap12">
               <select
+                id="payment_type"
                 className="form-select height43"
                 aria-label="Default select example"
               >
-                <option defaultValue={0}>Select Contract Type</option>
+                <option defaultValue={0}>Select Payment Type</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
-
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                type="button"
-                className="addContract"
-                style={{
-                  border: "2px solid #ddd",
-                  borderRadius: "8px",
-                  borderColor: "#235E6A",
-                  width: "40px",
-                  height: "40px",
-                  paddingBottom: "4px",
-                  fontSize: "21px",
-                }}
-              >
-                +
-              </button>
             </div>
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="exampleFormControlInput1"
-              className="form-label fw-semibold"
-            >
-              Relevant Department <span className="text-danger">*</span>
-            </label>
-            <select
-              className="form-select height43"
-              aria-label="Default select example"
-            >
-              <option defaultValue={0}>Select relevant department</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="start_date" className="form-label fw-semibold">
-              Start Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="start_date"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="end_date" className="form-label fw-semibold">
-              End Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="end_date"
-            />
           </div>
           <div
             style={{ height: "74px", marginBottom: "16px" }}
@@ -143,65 +76,72 @@ export const PaymentInformation = () => {
 
         <div className="d-flex flex-row justify-content-between">
           <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="related_term" className="form-label fw-semibold">
-              Related Term
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="related_term"
-              placeholder="Enter related term"
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
+            style={{ height: "74px"}}
             className="gap-1 width300"
           >
             <label
-              htmlFor="contract_total_amount"
+              htmlFor="payment_term"
               className="form-label fw-semibold"
             >
-              Contract Total Amount
+              Payment Term <span className="text-danger">*</span>
+            </label>
+            <div className="d-flex flex-row gap12">
+              <select
+                id="payment_term"
+                className="form-select height43"
+                aria-label="Default select example"
+              >
+                <option defaultValue={0}>Select Payment Term</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+          </div>
+          <div
+            style={{ height: "74px"}}
+            className="gap-1 width300"
+          >
+            <label htmlFor="payment_date" className="form-label fw-semibold">
+              Payment Date <span className="text-danger">*</span>
             </label>
             <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_total_amount"
-              placeholder="Enter Contract Total Amount"
+              type="date"
+              className="form-control height43"
+              id="payment_date"
             />
           </div>
           <div
-            style={{ height: "74px", marginBottom: "16px" }}
+            style={{ height: "74px"}}
             className="gap-1 width300"
           >
-            <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
-              Signer (On behave of MYT)
+            <label
+              htmlFor="amount"
+              className="form-label fw-semibold"
+            >
+              Amount <span className="text-danger">*</span>
             </label>
             <input
               type="text"
-              className="form-control height43 w-100"
-              id="signer_obh_myt"
-              placeholder="Enter signer"
+              className="form-control height43"
+              id="amount"
+              placeholder="Enter amount"
             />
           </div>
         </div>
 
+        <div className="mx-auto mt-3">
+          <button style={{fontSize:"17px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add </button>
+        </div>
+
         <div
-          style={{ height: "74px", marginBottom: "16px" }}
-          className="gap-1 width300"
+          style={{ height: "80px", marginBottom: "16px" }}
+          className="gap-1 width471 mt-4"
         >
           <label htmlFor="signer_position" className="form-label fw-semibold">
-            Signer Position
+            Attachment
           </label>
-          <input
-            type="text"
-            className="form-control height43 w-100"
-            id="signer_position"
-            placeholder="Enter signer position"
-          />
+          <input className="form-control" type="file" id="formFile" />
         </div>
       </div>
       {/** Form */}
@@ -213,7 +153,7 @@ export const PaymentInformation = () => {
       >
         <button
           onClick={() => dispatch(prevStep())}
-          className="button text-white fw-semibold"
+          className="prev-button fw-semibold"
         >
           Previous
         </button>
@@ -221,7 +161,6 @@ export const PaymentInformation = () => {
         <button
           onClick={() => {
             dispatch(nextStep());
-            // <Navigate to="/counterPartyInformation" />;
           }}
           className="button text-white fw-semibold"
         >
