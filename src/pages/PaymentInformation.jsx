@@ -9,37 +9,51 @@ export const PaymentInformation = () => {
   //
   const dispatch = useDispatch();
 
-  const {lifeCycle} = useSelector( (state) => state.contract);
+  const contract = useSelector((state) => state.contract);
+
+  const lifeCycle = contract;
 
   const {
     total_contract_amount,
-    contract_term,
+    payment_type,
     contract_number,
     payment_term,
     payment_date,
-    attachment
+    file,
   } = lifeCycle;
 
-  // UseForm hook 
+  // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    defaultValues:{
+    defaultValues: {
       total_contract_amount: total_contract_amount,
-      contract_term: contract_term,
+      payment_type: payment_type,
       contract_number: contract_number,
       payment_term: payment_term,
       payment_date: payment_date,
-      attachment: attachment
-    }
+      file: file,
+    },
   });
 
   // Useful Form states
-  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+  const {
+    errors,
+    isSubmitted,
+    submitCount,
+    isSubmitting,
+    isSubmitSuccessful,
+    isValid,
+  } = formState;
 
-   // handle onSubmit
-   const onSubmit = (data) => {
-    dispatch(addpaymentInformation(data))
-    //dispatch(nextStep());
-  }
+  // handle onSubmit
+  const onSubmit = (data) => {
+    // if (data.attachment.length > 0) {
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL(data.attachment[0]);
+    // }
+
+    dispatch(addpaymentInformation(data));
+    console.log(data.attachment);
+  };
 
   return (
     <>
@@ -54,298 +68,184 @@ export const PaymentInformation = () => {
 
       {/** Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="d-flex flex-column ">
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="total_contract_amount" className="form-label fw-semibold">
-              Total Contract Amount <span className="text-danger">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="total_contract_amount"
-              placeholder="Enter total contract amount"
-              {...register("total_contract_amount", {
-                required: {
-                value: true,
-                message: "Total contract amount is required"
-                },
-              })
-            }
-            />
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="payment_type"
-              className="form-label fw-semibold"
+        <div className="d-flex flex-column ">
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
             >
-              Payment Type <span className="text-danger">*</span>
-            </label>
-            <div className="d-flex flex-row gap12">
-              <select
-                id="payment_type"
-                className="form-select height43"
-                aria-label="Default select example"
-                {...register("payment_type", {
+              <label
+                htmlFor="total_contract_amount"
+                className="form-label fw-semibold"
+              >
+                Total Contract Amount <span className="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="total_contract_amount"
+                placeholder="Enter total contract amount"
+                {...register("total_contract_amount", {
                   required: {
-                  value: true,
-                  message: "Payment type is required"
-                  },
-                })
-              }
-              >
-                <option defaultValue={0}>Select Payment Type</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-          </div>
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="contract_number" className="form-label fw-semibold">
-              Contract Number
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="contract_number"
-              placeholder="MYT-FNF-0001-LA-2023"
-              {...register("contract_number")}
-            />
-          </div>
-        </div>
-
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px"}}
-            className="gap-1 width300"
-          >
-            <label
-              htmlFor="payment_term"
-              className="form-label fw-semibold"
-            >
-              Payment Term <span className="text-danger">*</span>
-            </label>
-            <div className="d-flex flex-row gap12">
-              <select
-                id="payment_term"
-                className="form-select height43"
-                aria-label="Default select example"
-                {...register("contract_number", {
-                    required: {
                     value: true,
-                    message: "Contract number is required"
+                    message: "Total contract amount is required",
+                  },
+                })}
+              />
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="payment_type" className="form-label fw-semibold">
+                Payment Type <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row gap12">
+                <select
+                  id="payment_type"
+                  className="form-select height43"
+                  aria-label="Default select example"
+                  {...register("payment_type", {
+                    required: {
+                      value: true,
+                      message: "Payment type is required",
                     },
-                  })
-                }
+                  })}
+                >
+                  <option>Select Payment Type</option>
+                  <option value={"Payment A"}>Payment A</option>
+                  <option value={"Payment B"}>Payment B</option>
+                  <option value={"Payment C"}>Payment C</option>
+                </select>
+              </div>
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="contract_number"
+                className="form-label fw-semibold"
               >
-                <option defaultValue={0}>Select Payment Term</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+                Contract Number
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="contract_number"
+                placeholder="MYT-FNF-0001-LA-2023"
+                {...register("contract_number")}
+              />
             </div>
           </div>
-          <div
-            style={{ height: "74px"}}
-            className="gap-1 width300"
-          >
-            <label htmlFor="payment_date" className="form-label fw-semibold">
-              Payment Date <span className="text-danger">*</span>
-            </label>
-            <input
-              type="date"
-              className="form-control height43"
-              id="payment_date"
-              {...register("payment_date", {
-                required: {
-                value: true,
-                message: "Payment date is required"
-                },
-              })
-            }
-            />
+
+          <div className="d-flex flex-row justify-content-between">
+            <div style={{ height: "74px" }} className="gap-1 width300">
+              <label htmlFor="payment_term" className="form-label fw-semibold">
+                Payment Term <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row gap12">
+                <select
+                  id="payment_term"
+                  className="form-select height43"
+                  aria-label="Default select example"
+                  {...register("payment_term", {
+                    required: {
+                      value: true,
+                      message: "Payment term is required",
+                    },
+                  })}
+                >
+                  <option defaultValue={0}>Select Payment Term</option>
+                  <option value={"Term A"}>Term A</option>
+                  <option value={"Term B"}>Term B</option>
+                  <option value={"Term C"}>Term C</option>
+                </select>
+              </div>
+            </div>
+            <div style={{ height: "74px" }} className="gap-1 width300">
+              <label htmlFor="payment_date" className="form-label fw-semibold">
+                Payment Date <span className="text-danger">*</span>
+              </label>
+              <input
+                type="date"
+                className="form-control height43"
+                id="payment_date"
+                {...register("payment_date", {
+                  required: {
+                    value: true,
+                    message: "Payment date is required",
+                  },
+                })}
+              />
+            </div>
+            <div style={{ height: "74px" }} className="gap-1 width300">
+              <label htmlFor="amount" className="form-label fw-semibold">
+                Amount <span className="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                className="form-control height43"
+                id="amount"
+                placeholder="Enter amount"
+                {...register("amount", {
+                  required: {
+                    value: true,
+                    message: "Amount is required",
+                  },
+                })}
+              />
+            </div>
           </div>
+
+          <div className="mx-auto mt-3">
+            <button style={{ fontSize: "17px" }} className="addBtn fw-semibold">
+              {" "}
+              <span
+                style={{ marginBottom: "7px", marginRight: "5px" }}
+                className="fs-2 p-0"
+              >
+                +
+              </span>{" "}
+              Add{" "}
+            </button>
+          </div>
+
           <div
-            style={{ height: "74px"}}
-            className="gap-1 width300"
+            style={{ height: "80px", marginBottom: "16px" }}
+            className="gap-1 width471 mt-4"
           >
-            <label
-              htmlFor="amount"
-              className="form-label fw-semibold"
-            >
-              Amount <span className="text-danger">*</span>
+            <label htmlFor="file" className="form-label fw-semibold">
+              Attachment
             </label>
             <input
-              type="text"
-              className="form-control height43"
-              id="amount"
-              placeholder="Enter amount"
-              {...register("amount", {
-                required: {
-                value: true,
-                message: "Amount is required"
-                },
-              })
-            }
+              className="form-control"
+              type="file"
+              id="file"
+              {...register("file")}
             />
           </div>
         </div>
 
-        <div className="mx-auto mt-3">
-          <button style={{fontSize:"17px"}} className="addBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add </button>
-        </div>
-
+        {/** Button */}
         <div
-          style={{ height: "80px", marginBottom: "16px" }}
-          className="gap-1 width471 mt-4"
+          style={{ marginTop: "40px" }}
+          className="d-flex gap-3 flex-row align-items-end justify-content-end"
         >
-          <label htmlFor="attachment" className="form-label fw-semibold">
-            Attachment
-          </label>
-          <input 
-            className="form-control" 
-            type="file" 
-            id="attachment"
-            {...register("attachment")}  />
+          <button
+            onClick={() => dispatch(prevStep())}
+            className="prev-button fw-semibold"
+          >
+            Previous
+          </button>
+
+          <button type="submit" className="button text-white fw-semibold">
+            Save
+          </button>
         </div>
-      </div>
-     
-
-      {/** Button */}
-      <div
-        style={{ marginTop: "40px" }}
-        className="d-flex gap-3 flex-row align-items-end justify-content-end"
-      >
-        <button
-          onClick={() => dispatch(prevStep())}
-          className="prev-button fw-semibold"
-        >
-          Previous
-        </button>
-
-        <button
-          type="submit"
-          className="button text-white fw-semibold"
-        >
-          Save
-        </button>
-      </div>
-      {/** Button */}
+        {/** Button */}
       </form>
       {/** Form */}
-
-      {/** Hidden model */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered width700">
-          <div className="modal-content">
-            {/** Model header */}
-            <div className="modal-header model-header">
-              <h1
-                className="modal-title text-white fw-semibold fs-5"
-                id="exampleModalLabel"
-              >
-                Add Contract Type
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            {/** Model header */}
-
-            {/** Model body */}
-            <div className="modal-body d-flex flex-column gap-4">
-              {/** Add Contract Type */}
-              <div className="d-flex flex-row gap-4">
-                <div style={{ height: "74px" }} className="gap-1 width300">
-                  <label
-                    htmlFor="contract_type_name"
-                    className="form-label fw-semibold"
-                  >
-                    Contract type name <span className="text-danger"> * </span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control height43 w-100"
-                    id="contract_type_name"
-                    placeholder="Enter contract type name"
-                  />
-                </div>
-
-                <div className="d-flex flex-row align-items-end justify-content-end">
-                  <button className="model-button text-white fw-semibold">
-                    Add
-                  </button>
-                </div>
-              </div>
-              {/** Add Contract Type */}
-
-              {/** Contract table */}
-              <div className="shadow-lg table-container">
-                <table>
-                  <thead className="t-header">
-                    <tr>
-                      <th>No</th>
-                      <th>Contract Type</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody className="t-body">
-                    <tr>
-                      <td>1</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              {/** Contract table */}
-            </div>
-            {/** Model body */}
-          </div>
-        </div>
-      </div>
-      {/** Hidden model */}
     </>
   );
 };

@@ -10,8 +10,8 @@ import { addGeneralInformation } from "../redux/features/contract/contractSlice"
 export const GeneralInformation = () => {
   //
   const dispatch = useDispatch();
-  
-  const {generalInformation} = useSelector( (state) => state.contract);
+
+  const { generalInformation } = useSelector((state) => state.contract);
 
   const {
     contract_title,
@@ -22,12 +22,12 @@ export const GeneralInformation = () => {
     related_term,
     contract_number,
     signer_obh_myt,
-    signer_position
+    signer_position,
   } = generalInformation;
 
-  // UseForm hook 
+  // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    defaultValues:{
+    defaultValues: {
       contract_title: contract_title,
       contract_type: contract_type,
       relevant_department: relevant_department,
@@ -37,18 +37,24 @@ export const GeneralInformation = () => {
       contract_number: contract_number,
       signer_obh_myt: signer_obh_myt,
       signer_position: signer_position,
-    }
+    },
   });
 
   // Useful Form states
-  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+  const {
+    errors,
+    isSubmitted,
+    submitCount,
+    isSubmitting,
+    isSubmitSuccessful,
+    isValid,
+  } = formState;
 
-   // handle onSubmit
-   const onSubmit = (data) => {
-    
-    dispatch(addGeneralInformation(data))
+  // handle onSubmit
+  const onSubmit = (data) => {
+    dispatch(addGeneralInformation(data));
     dispatch(nextStep());
-  }
+  };
 
   return (
     <>
@@ -69,32 +75,30 @@ export const GeneralInformation = () => {
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="contract_title" className="form-label fw-semibold">
+              <label
+                htmlFor="contract_title"
+                className="form-label fw-semibold"
+              >
                 Contract Title <span className="text-danger">*</span>
               </label>
               <input
-                
                 type="text"
                 className="form-control height43 w-100"
                 id="contract_title"
                 placeholder="Enter Contract Title"
                 {...register("contract_title", {
-                        required: {
-                        value: true,
-                        message: "Contract title is required"
-                      },
-                  })
-                }
+                  required: {
+                    value: true,
+                    message: "Contract title is required",
+                  },
+                })}
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label
-                htmlFor="contract_type"
-                className="form-label fw-semibold"
-              >
+              <label htmlFor="contract_type" className="form-label fw-semibold">
                 Contract Type <span className="text-danger">*</span>
               </label>
               <div className="d-flex flex-row gap12">
@@ -105,15 +109,14 @@ export const GeneralInformation = () => {
                   {...register("contract_type", {
                     required: {
                       value: true,
-                      message: "Contract type is required"
+                      message: "Contract type is required",
                     },
-                  })
-                }
+                  })}
                 >
                   <option>Select Contract Type</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value={"Type A"}>Type A</option>
+                  <option value={"Type B"}>Type A</option>
+                  <option value={"Type C"}>Type A</option>
                 </select>
 
                 <button
@@ -150,17 +153,16 @@ export const GeneralInformation = () => {
                 className="form-select height43"
                 aria-label="Default select example"
                 {...register("relevant_department", {
-                    required: {
-                      value: true,
-                      message: "Contract title is required"
-                    },
-                  })
-                }
+                  required: {
+                    value: true,
+                    message: "Contract title is required",
+                  },
+                })}
               >
                 <option>Select relevant department</option>
-                <option value={"Department A"}>One</option>
-                <option value={"Department B"}>Two</option>
-                <option value={"Department C"}>Three</option>
+                <option value={"Department A"}>Department A</option>
+                <option value={"Department B"}>Department B</option>
+                <option value={"Department C"}>Department C</option>
               </select>
             </div>
           </div>
@@ -178,12 +180,11 @@ export const GeneralInformation = () => {
                 className="form-control height43"
                 id="start_date"
                 {...register("start_date", {
-                    required: {
-                      value: true,
-                      message: "Start date is required"
-                    },
-                  })
-                }
+                  required: {
+                    value: true,
+                    message: "Start date is required",
+                  },
+                })}
               />
             </div>
             <div
@@ -198,19 +199,21 @@ export const GeneralInformation = () => {
                 className="form-control height43"
                 id="end_date"
                 {...register("end_date", {
-                    required: {
-                      value: true,
-                      message: "End date is required"
-                    },
-                  })
-                }
+                  required: {
+                    value: true,
+                    message: "End date is required",
+                  },
+                })}
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="contract_number" className="form-label fw-semibold">
+              <label
+                htmlFor="contract_number"
+                className="form-label fw-semibold"
+              >
                 Contract Number
               </label>
               <input
@@ -243,7 +246,10 @@ export const GeneralInformation = () => {
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="signer_obh_myt" className="form-label fw-semibold">
+              <label
+                htmlFor="signer_obh_myt"
+                className="form-label fw-semibold"
+              >
                 Signer (On behave of MYT)
               </label>
               <input
@@ -255,19 +261,22 @@ export const GeneralInformation = () => {
               />
             </div>
             <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
-          >
-            <label htmlFor="signer_position" className="form-label fw-semibold">
-              Signer Position
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="signer_position"
-              placeholder="Enter signer position"
-              {...register("signer_position")}
-            />
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="signer_position"
+                className="form-label fw-semibold"
+              >
+                Signer Position
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="signer_position"
+                placeholder="Enter signer position"
+                {...register("signer_position")}
+              />
             </div>
           </div>
         </div>
@@ -277,10 +286,7 @@ export const GeneralInformation = () => {
           style={{ marginTop: "40px" }}
           className="d-flex flex-row align-items-end justify-content-end"
         >
-          <button
-            type="submit"
-            className="button text-white fw-semibold"
-          >
+          <button type="submit" className="button text-white fw-semibold">
             Save & Next
           </button>
         </div>

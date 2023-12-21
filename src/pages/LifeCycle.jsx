@@ -10,7 +10,7 @@ export const LifeCycle = () => {
   //
   const dispatch = useDispatch();
 
-  const {lifeCycle} = useSelector( (state) => state.contract);
+  const { lifeCycle } = useSelector((state) => state.contract);
 
   const {
     life_cycle_name,
@@ -20,25 +20,32 @@ export const LifeCycle = () => {
     remind_date,
   } = lifeCycle;
 
-  // UseForm hook 
+  // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    defaultValues:{
+    defaultValues: {
       life_cycle_name: life_cycle_name,
       contract_term: contract_term,
       prior_notice_term: prior_notice_term,
       remind_email: remind_email,
       remind_date: remind_date,
-    }
+    },
   });
 
   // Useful Form states
-  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+  const {
+    errors,
+    isSubmitted,
+    submitCount,
+    isSubmitting,
+    isSubmitSuccessful,
+    isValid,
+  } = formState;
 
-   // handle onSubmit
-   const onSubmit = (data) => {
-    dispatch(addlifeCycle(data))
+  // handle onSubmit
+  const onSubmit = (data) => {
+    dispatch(addlifeCycle(data));
     dispatch(nextStep());
-  }
+  };
 
   return (
     <>
@@ -55,104 +62,102 @@ export const LifeCycle = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex flex-column ">
           <div className="d-flex flex-row justify-content-between">
-              <div
-                style={{ height: "74px", marginBottom: "16px" }}
-                className="gap-1 width300"
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="life_cycle_name"
+                className="form-label fw-semibold"
               >
-                <label
-                  htmlFor="life_cycle_name"
-                  className="form-label fw-semibold"
+                Life Cycle Type <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row gap12">
+                <select
+                  id="life_cycle_name"
+                  className="form-select height43"
+                  aria-label="Default select example"
+                  {...register("life_cycle_name", {
+                    required: {
+                      value: true,
+                      message: "Life cycle is required",
+                    },
+                  })}
                 >
-                  Life Cycle Type <span className="text-danger">*</span>
-                </label>
-                <div className="d-flex flex-row gap12">
-                  <select
-                    id="life_cycle_name"
-                    className="form-select height43"
-                    aria-label="Default select example"
-                    {...register("life_cycle_name", {
-                        required: {
-                        value: true,
-                        message: "Life cycle is required"
-                        },
-                      })
-                    }
-                  >
-                    <option defaultValue={0}>Select life cycle type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+                  <option>Select life cycle type</option>
+                  <option value={"LifeCycle A"}>LifeCycle A</option>
+                  <option value={"LifeCycle B"}>LifeCycle B</option>
+                  <option value={"LifeCycle C"}>LifeCycle C</option>
+                </select>
 
-                  <button
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    type="button"
-                    className="addContract"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      borderColor: "#235E6A",
-                      width: "40px",
-                      height: "40px",
-                      paddingBottom: "4px",
-                      fontSize: "21px",
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  type="button"
+                  className="addContract"
+                  style={{
+                    border: "2px solid #ddd",
+                    borderRadius: "8px",
+                    borderColor: "#235E6A",
+                    width: "40px",
+                    height: "40px",
+                    paddingBottom: "4px",
+                    fontSize: "21px",
+                  }}
+                >
+                  +
+                </button>
               </div>
-              <div
-                style={{ height: "74px", marginBottom: "16px" }}
-                className="gap-1 width300"
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label htmlFor="contract_term" className="form-label fw-semibold">
+                Contract Term <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row align-items-center gap-2">
+                <input
+                  type="text"
+                  className="form-control height43 w-100"
+                  id="contract_term"
+                  placeholder="Enter contract term"
+                  {...register("contract_term", {
+                    required: {
+                      value: true,
+                      message: "Contract term is required",
+                    },
+                  })}
+                />
+                <span className="fw-semibold ">Months</span>
+              </div>
+            </div>
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 width300"
+            >
+              <label
+                htmlFor="prior_notice_term"
+                className="form-label fw-semibold"
               >
-                <label htmlFor="contract_term" className="form-label fw-semibold">
-                  Contract Term <span className="text-danger">*</span>
-                </label>
-                <div className="d-flex flex-row align-items-center gap-2">
-                  <input
-                    type="text"
-                    className="form-control height43 w-100"
-                    id="contract_term"
-                    placeholder="Enter contract term"
-                    {...register("contract_term", {
-                        required: {
-                        value: true,
-                        message: "Contract term is required"
-                        },
-                      })
-                    }
-                  />
-                  <span className="fw-semibold ">Months</span>
-                </div>
-                
+                Prior notice term <span className="text-danger">*</span>
+              </label>
+              <div className="d-flex flex-row align-items-center gap-2">
+                <input
+                  type="text"
+                  className="form-control height43 w-100"
+                  id="prior_notice_term"
+                  placeholder="Enter prior notice term"
+                  {...register("prior_notice_term", {
+                    required: {
+                      value: true,
+                      message: "Prior notice term is required",
+                    },
+                  })}
+                />
+                <span className="fw-semibold ">Days</span>
               </div>
-              <div
-                style={{ height: "74px", marginBottom: "16px" }}
-                className="gap-1 width300"
-              >
-                <label htmlFor="prior_notice_term" className="form-label fw-semibold">
-                  Prior notice term <span className="text-danger">*</span>
-                </label>
-                <div className="d-flex flex-row align-items-center gap-2">
-                  <input
-                    type="text"
-                    className="form-control height43 w-100"
-                    id="prior_notice_term"
-                    placeholder="Enter prior notice term"
-                    {...register("prior_notice_term", {
-                        required: {
-                        value: true,
-                        message: "Prior notice term is required"
-                        },
-                      })
-                    }
-                  />
-                  <span className="fw-semibold ">Days</span>
-                </div>
-                
-              </div>
+            </div>
           </div>
           <div className="d-flex flex-row justify-content-between">
             <div
@@ -177,18 +182,24 @@ export const LifeCycle = () => {
               className="gap-1 width300"
             >
               <label htmlFor="remind_date" className="form-label fw-semibold">
-                Related Term
+                Related Date
               </label>
               <input
-                type="text"
+                type="date"
                 className="form-control height43 w-100"
                 id="remind_date"
                 placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
                 {...register("remind_date")}
               />
             </div>
-            <div style={{marginTop: "16px"}}>
-                  <button style={{fontSize:"14px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add Date</button>
+            <div style={{ marginTop: "16px" }}>
+              <button
+                style={{ fontSize: "14px" }}
+                className="addDateBtn fw-semibold"
+              >
+                {" "}
+                <span className="fs-1 p-0">+</span> Add Date
+              </button>
             </div>
           </div>
         </div>
@@ -204,18 +215,13 @@ export const LifeCycle = () => {
             Previous
           </button>
 
-          <button
-            type="submit"
-            className="button text-white fw-semibold"
-          >
+          <button type="submit" className="button text-white fw-semibold">
             Save & Next
           </button>
         </div>
       </form>
       {/** Button */}
       {/** Form */}
-
-      
 
       {/** Hidden model */}
       <div

@@ -6,10 +6,9 @@ import { useForm } from "react-hook-form";
 import { addcounterPartyInformation } from "../redux/features/contract/contractSlice";
 
 export const CounterPartyInformation = () => {
-
   const dispatch = useDispatch();
 
-  const {counterPartyInformation} = useSelector( (state) => state.contract);
+  const { counterPartyInformation } = useSelector((state) => state.contract);
 
   const {
     counter_party,
@@ -17,33 +16,42 @@ export const CounterPartyInformation = () => {
     signer_position,
     email,
     contract_number,
+    contract_person_position,
     contract_person,
     phone,
-    address
+    address,
   } = counterPartyInformation;
 
-  // UseForm hook 
+  // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    defaultValues:{
+    defaultValues: {
       counter_party: counter_party,
       signer: signer,
       signer_position: signer_position,
       email: email,
       contract_number: contract_number,
+      contract_person_position: contract_person_position,
       contract_person: contract_person,
       phone: phone,
-      address: address
-    }
+      address: address,
+    },
   });
 
   // Useful Form states
-  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+  const {
+    errors,
+    isSubmitted,
+    submitCount,
+    isSubmitting,
+    isSubmitSuccessful,
+    isValid,
+  } = formState;
 
-   // handle onSubmit
-   const onSubmit = (data) => {
-    dispatch(addcounterPartyInformation(data))
+  // handle onSubmit
+  const onSubmit = (data) => {
+    dispatch(addcounterPartyInformation(data));
     dispatch(nextStep());
-  }
+  };
 
   return (
     <>
@@ -68,28 +76,28 @@ export const CounterPartyInformation = () => {
               <label htmlFor="counter_party" className="form-label fw-semibold">
                 Counterparty <span className="text-danger">*</span>
               </label>
-              <input
-                type="text"
-                className="form-control height43 w-100"
+              <select
                 id="counter_party"
-                placeholder="Enter Contract Title"
+                className="form-select height43"
+                aria-label="Default select example"
                 {...register("counter_party", {
-                    required: {
+                  required: {
                     value: true,
-                    message: "Counter party is required"
-                    },
-                  })
-                }
-              />
+                    message: "Contract title is required",
+                  },
+                })}
+              >
+                <option>Select contract type</option>
+                <option value={"Type A"}>Type A</option>
+                <option value={"Type B"}>Type B</option>
+                <option value={"Type C"}>Type C</option>
+              </select>
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label
-                htmlFor="signer"
-                className="form-label fw-semibold"
-              >
+              <label htmlFor="signer" className="form-label fw-semibold">
                 Signer (On behave of Counterparty)
               </label>
               <input
@@ -97,13 +105,7 @@ export const CounterPartyInformation = () => {
                 className="form-control height43"
                 id="signer"
                 placeholder="Enter signer"
-                {...register("signer", {
-                    required: {
-                    value: true,
-                    message: "Signer is required"
-                    },
-                  })
-                }
+                {...register("signer")}
               />
             </div>
             <div
@@ -114,20 +116,14 @@ export const CounterPartyInformation = () => {
                 htmlFor="signer_position"
                 className="form-label fw-semibold"
               >
-              Signer Position <span className="text-danger">*</span>
+                Signer Position
               </label>
               <input
                 type="text"
                 className="form-control height43"
                 id="signer_position"
                 placeholder="Enter signer position"
-                {...register("signer_position", {
-                    required: {
-                    value: true,
-                    message: "Signer position is required"
-                    },
-                  })
-                }
+                {...register("signer_position")}
               />
             </div>
           </div>
@@ -138,20 +134,14 @@ export const CounterPartyInformation = () => {
               className="gap-1 width300"
             >
               <label htmlFor="email" className="form-label fw-semibold">
-              Email <span className="text-danger">*</span>
+                Email
               </label>
               <input
                 type="text"
                 className="form-control height43"
                 id="email"
                 placeholder="Enter email address"
-                {...register("email", {
-                    required: {
-                    value: true,
-                    message: "Email is required"
-                    },
-                  })
-                }
+                {...register("email")}
               />
             </div>
             <div
@@ -159,41 +149,32 @@ export const CounterPartyInformation = () => {
               className="gap-1 width300"
             >
               <label htmlFor="end_date" className="form-label fw-semibold">
-                Contract Person Phone <span className="text-danger">*</span>
+                Contract Person Phone
               </label>
               <input
                 type="text"
                 className="form-control height43"
                 id="contrat_person"
                 placeholder="Enter phone number"
-                {...register("email", {
-                    required: {
-                    value: true,
-                    message: "Email is required"
-                    },
-                  })
-                }
+                {...register("email")}
               />
             </div>
             <div
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="contract_number" className="form-label fw-semibold">
+              <label
+                htmlFor="contract_person_position"
+                className="form-label fw-semibold"
+              >
                 Position of Contract Person
               </label>
               <input
                 type="text"
                 className="form-control height43 w-100"
-                id="contract_number"
+                id="contract_person_position"
                 placeholder="Enter position"
-                {...register("contract_number", {
-                    required: {
-                    value: true,
-                    message: "Contract number is required"
-                    },
-                  })
-                }
+                {...register("contract_person_position")}
               />
             </div>
           </div>
@@ -204,7 +185,10 @@ export const CounterPartyInformation = () => {
                 style={{ height: "74px", marginBottom: "16px" }}
                 className="gap-1 width300"
               >
-                <label htmlFor="contract_person" className="form-label fw-semibold">
+                <label
+                  htmlFor="contract_person"
+                  className="form-label fw-semibold"
+                >
                   Contract Person
                 </label>
                 <input
@@ -212,23 +196,14 @@ export const CounterPartyInformation = () => {
                   className="form-control height43 w-100"
                   id="contract_person"
                   placeholder="Enter contract person name"
-                  {...register("contract_person", {
-                      required: {
-                      value: true,
-                      message: "Contract person is required"
-                      },
-                    })
-                  }
+                  {...register("contract_person")}
                 />
               </div>
               <div
                 style={{ height: "74px", marginBottom: "16px" }}
                 className="gap-1 width300"
               >
-                <label
-                  htmlFor="phone"
-                  className="form-label fw-semibold"
-                >
+                <label htmlFor="phone" className="form-label fw-semibold">
                   Phone
                 </label>
                 <input
@@ -236,13 +211,7 @@ export const CounterPartyInformation = () => {
                   className="form-control height43 w-100"
                   id="phone"
                   placeholder="Enter phone numnber"
-                  {...register("phone", {
-                      required: {
-                      value: true,
-                      message: "Phone is required"
-                      },
-                    })
-                  }
+                  {...register("phone")}
                 />
               </div>
             </div>
@@ -259,37 +228,28 @@ export const CounterPartyInformation = () => {
                 className="form-control height133 w-100"
                 id="address"
                 placeholder="Enter address"
-                {...register("address", {
-                    required: {
-                    value: true,
-                    message: "Address is required"
-                    },
-                  })
-                }
+                {...register("address")}
               />
             </div>
           </div>
         </div>
         {/** Button */}
-      <div
-        style={{ marginTop: "40px" }}
-        className="d-flex gap-3  flex-row align-items-end justify-content-end"
-      >
-        <button
-          onClick={() => dispatch(prevStep())}
-          className="prev-button fw-semibold"
+        <div
+          style={{ marginTop: "40px" }}
+          className="d-flex gap-3  flex-row align-items-end justify-content-end"
         >
-          Previous
-        </button>
+          <button
+            onClick={() => dispatch(prevStep())}
+            className="prev-button fw-semibold"
+          >
+            Previous
+          </button>
 
-        <button
-          type="submit"
-          className="button text-white fw-semibold"
-        >
-          Save & Next
-        </button>
-      </div>
-      {/** Button */}
+          <button type="submit" className="button text-white fw-semibold">
+            Save & Next
+          </button>
+        </div>
+        {/** Button */}
       </form>
       {/** Form */}
     </>
