@@ -37,7 +37,7 @@ export const contractSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-// export const {  } = contractSlice.actions;
+export const {addGeneralInformation, addcounterPartyInformation, addlifeCycle, addpaymentInformation} = contractSlice.actions;
 
 
-export default contractSlice.reducer
+export default contractSlice.reducer;

@@ -4,9 +4,9 @@
 import React from "react";
 import { LifeCycle } from "./LifeCycle";
 import { useSelector } from "react-redux";
+import { PaymentInformation } from "./PaymentInformation";
 import { GeneralInformation } from "./GeneralInformation";
 import { CounterPartyInformation } from "./CounterPartyInformation";
-import { PaymentInformation } from "./PaymentInformation";
 
 export const ContractAddPages = () => {
   //

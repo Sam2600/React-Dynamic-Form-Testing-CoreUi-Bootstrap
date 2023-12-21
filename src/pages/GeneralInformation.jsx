@@ -1,23 +1,53 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+
 import React from "react";
-import { useDispatch } from "react-redux";
-import { nextStep } from "../redux/features/step/stepSlice";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { nextStep } from "../redux/features/step/stepSlice";
+import { addGeneralInformation } from "../redux/features/contract/contractSlice";
 
 export const GeneralInformation = () => {
+  //
   const dispatch = useDispatch();
+  
+  const {generalInformation} = useSelector( (state) => state.contract);
+
+  const {
+    contract_title,
+    contract_type,
+    relevant_department,
+    start_date,
+    end_date,
+    related_term,
+    contract_number,
+    signer_obh_myt,
+    signer_position
+  } = generalInformation;
 
   // UseForm hook 
-  const { register, formState, control, handleSubmit, watch, reset } = useForm({});
+  const { register, formState, control, handleSubmit, watch, reset } = useForm({
+    defaultValues:{
+      contract_title: contract_title,
+      contract_type: contract_type,
+      relevant_department: relevant_department,
+      start_date: start_date,
+      end_date: end_date,
+      related_term: related_term,
+      contract_number: contract_number,
+      signer_obh_myt: signer_obh_myt,
+      signer_position: signer_position,
+    }
+  });
 
   // Useful Form states
   const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
 
    // handle onSubmit
    const onSubmit = (data) => {
-    console.log(data);
-    //dispatch(nextStep());
+    
+    dispatch(addGeneralInformation(data))
+    dispatch(nextStep());
   }
 
   return (
@@ -43,6 +73,7 @@ export const GeneralInformation = () => {
                 Contract Title <span className="text-danger">*</span>
               </label>
               <input
+                
                 type="text"
                 className="form-control height43 w-100"
                 id="contract_title"
@@ -79,7 +110,7 @@ export const GeneralInformation = () => {
                   })
                 }
                 >
-                  <option defaultValue={0}>Select Contract Type</option>
+                  <option>Select Contract Type</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
@@ -109,16 +140,16 @@ export const GeneralInformation = () => {
               className="gap-1 width300"
             >
               <label
-                htmlFor="contract_title"
+                htmlFor="relevant_department"
                 className="form-label fw-semibold"
               >
                 Relevant Department <span className="text-danger">*</span>
               </label>
               <select
-                id="contract_title"
+                id="relevant_department"
                 className="form-select height43"
                 aria-label="Default select example"
-                {...register("contract_title", {
+                {...register("relevant_department", {
                     required: {
                       value: true,
                       message: "Contract title is required"
@@ -126,10 +157,10 @@ export const GeneralInformation = () => {
                   })
                 }
               >
-                <option defaultValue={0}>Select relevant department</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option>Select relevant department</option>
+                <option value={"Department A"}>One</option>
+                <option value={"Department B"}>Two</option>
+                <option value={"Department C"}>Three</option>
               </select>
             </div>
           </div>

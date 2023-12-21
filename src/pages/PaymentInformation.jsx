@@ -1,11 +1,45 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
+import { useForm } from "react-hook-form";
+import { addpaymentInformation } from "../redux/features/contract/contractSlice";
 
 export const PaymentInformation = () => {
   //
   const dispatch = useDispatch();
+
+  const {lifeCycle} = useSelector( (state) => state.contract);
+
+  const {
+    total_contract_amount,
+    contract_term,
+    contract_number,
+    payment_term,
+    payment_date,
+    attachment
+  } = lifeCycle;
+
+  // UseForm hook 
+  const { register, formState, control, handleSubmit, watch, reset } = useForm({
+    defaultValues:{
+      total_contract_amount: total_contract_amount,
+      contract_term: contract_term,
+      contract_number: contract_number,
+      payment_term: payment_term,
+      payment_date: payment_date,
+      attachment: attachment
+    }
+  });
+
+  // Useful Form states
+  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+
+   // handle onSubmit
+   const onSubmit = (data) => {
+    dispatch(addpaymentInformation(data))
+    //dispatch(nextStep());
+  }
 
   return (
     <>
@@ -19,6 +53,7 @@ export const PaymentInformation = () => {
       {/** Title */}
 
       {/** Form */}
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex flex-column ">
         <div className="d-flex flex-row justify-content-between">
           <div
@@ -33,6 +68,13 @@ export const PaymentInformation = () => {
               className="form-control height43 w-100"
               id="total_contract_amount"
               placeholder="Enter total contract amount"
+              {...register("total_contract_amount", {
+                required: {
+                value: true,
+                message: "Total contract amount is required"
+                },
+              })
+            }
             />
           </div>
           <div
@@ -50,6 +92,13 @@ export const PaymentInformation = () => {
                 id="payment_type"
                 className="form-select height43"
                 aria-label="Default select example"
+                {...register("payment_type", {
+                  required: {
+                  value: true,
+                  message: "Payment type is required"
+                  },
+                })
+              }
               >
                 <option defaultValue={0}>Select Payment Type</option>
                 <option value="1">One</option>
@@ -70,6 +119,7 @@ export const PaymentInformation = () => {
               className="form-control height43 w-100"
               id="contract_number"
               placeholder="MYT-FNF-0001-LA-2023"
+              {...register("contract_number")}
             />
           </div>
         </div>
@@ -90,6 +140,13 @@ export const PaymentInformation = () => {
                 id="payment_term"
                 className="form-select height43"
                 aria-label="Default select example"
+                {...register("contract_number", {
+                    required: {
+                    value: true,
+                    message: "Contract number is required"
+                    },
+                  })
+                }
               >
                 <option defaultValue={0}>Select Payment Term</option>
                 <option value="1">One</option>
@@ -109,6 +166,13 @@ export const PaymentInformation = () => {
               type="date"
               className="form-control height43"
               id="payment_date"
+              {...register("payment_date", {
+                required: {
+                value: true,
+                message: "Payment date is required"
+                },
+              })
+            }
             />
           </div>
           <div
@@ -126,25 +190,36 @@ export const PaymentInformation = () => {
               className="form-control height43"
               id="amount"
               placeholder="Enter amount"
+              {...register("amount", {
+                required: {
+                value: true,
+                message: "Amount is required"
+                },
+              })
+            }
             />
           </div>
         </div>
 
         <div className="mx-auto mt-3">
-          <button style={{fontSize:"17px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add </button>
+          <button style={{fontSize:"17px"}} className="addBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add </button>
         </div>
 
         <div
           style={{ height: "80px", marginBottom: "16px" }}
           className="gap-1 width471 mt-4"
         >
-          <label htmlFor="signer_position" className="form-label fw-semibold">
+          <label htmlFor="attachment" className="form-label fw-semibold">
             Attachment
           </label>
-          <input className="form-control" type="file" id="formFile" />
+          <input 
+            className="form-control" 
+            type="file" 
+            id="attachment"
+            {...register("attachment")}  />
         </div>
       </div>
-      {/** Form */}
+     
 
       {/** Button */}
       <div
@@ -159,15 +234,15 @@ export const PaymentInformation = () => {
         </button>
 
         <button
-          onClick={() => {
-            dispatch(nextStep());
-          }}
+          type="submit"
           className="button text-white fw-semibold"
         >
           Save
         </button>
       </div>
       {/** Button */}
+      </form>
+      {/** Form */}
 
       {/** Hidden model */}
       <div

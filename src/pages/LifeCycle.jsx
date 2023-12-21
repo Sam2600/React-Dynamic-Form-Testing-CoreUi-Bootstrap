@@ -1,12 +1,44 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
+import { useForm } from "react-hook-form";
+import { addlifeCycle } from "../redux/features/contract/contractSlice";
 
 export const LifeCycle = () => {
   //
   const dispatch = useDispatch();
+
+  const {lifeCycle} = useSelector( (state) => state.contract);
+
+  const {
+    life_cycle_name,
+    contract_term,
+    prior_notice_term,
+    remind_email,
+    remind_date,
+  } = lifeCycle;
+
+  // UseForm hook 
+  const { register, formState, control, handleSubmit, watch, reset } = useForm({
+    defaultValues:{
+      life_cycle_name: life_cycle_name,
+      contract_term: contract_term,
+      prior_notice_term: prior_notice_term,
+      remind_email: remind_email,
+      remind_date: remind_date,
+    }
+  });
+
+  // Useful Form states
+  const { errors, isSubmitted, submitCount, isSubmitting, isSubmitSuccessful, isValid } = formState;
+
+   // handle onSubmit
+   const onSubmit = (data) => {
+    dispatch(addlifeCycle(data))
+    dispatch(nextStep());
+  }
 
   return (
     <>
@@ -20,147 +52,170 @@ export const LifeCycle = () => {
       {/** Title */}
 
       {/** Form */}
-      <div className="d-flex flex-column ">
-        <div className="d-flex flex-row justify-content-between">
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
-            >
-              <label
-                htmlFor="exampleFormControlInput1"
-                className="form-label fw-semibold"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="d-flex flex-column ">
+          <div className="d-flex flex-row justify-content-between">
+              <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                className="gap-1 width300"
               >
-                Life Cycle Type <span className="text-danger">*</span>
-              </label>
-              <div className="d-flex flex-row gap12">
-                <select
-                  className="form-select height43"
-                  aria-label="Default select example"
+                <label
+                  htmlFor="life_cycle_name"
+                  className="form-label fw-semibold"
                 >
-                  <option defaultValue={0}>Select life cycle type</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                  Life Cycle Type <span className="text-danger">*</span>
+                </label>
+                <div className="d-flex flex-row gap12">
+                  <select
+                    id="life_cycle_name"
+                    className="form-select height43"
+                    aria-label="Default select example"
+                    {...register("life_cycle_name", {
+                        required: {
+                        value: true,
+                        message: "Life cycle is required"
+                        },
+                      })
+                    }
+                  >
+                    <option defaultValue={0}>Select life cycle type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
 
-                <button
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  type="button"
-                  className="addContract"
-                  style={{
-                    border: "2px solid #ddd",
-                    borderRadius: "8px",
-                    borderColor: "#235E6A",
-                    width: "40px",
-                    height: "40px",
-                    paddingBottom: "4px",
-                    fontSize: "21px",
-                  }}
-                >
-                  +
-                </button>
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    type="button"
+                    className="addContract"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      borderColor: "#235E6A",
+                      width: "40px",
+                      height: "40px",
+                      paddingBottom: "4px",
+                      fontSize: "21px",
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
+              <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                className="gap-1 width300"
+              >
+                <label htmlFor="contract_term" className="form-label fw-semibold">
+                  Contract Term <span className="text-danger">*</span>
+                </label>
+                <div className="d-flex flex-row align-items-center gap-2">
+                  <input
+                    type="text"
+                    className="form-control height43 w-100"
+                    id="contract_term"
+                    placeholder="Enter contract term"
+                    {...register("contract_term", {
+                        required: {
+                        value: true,
+                        message: "Contract term is required"
+                        },
+                      })
+                    }
+                  />
+                  <span className="fw-semibold ">Months</span>
+                </div>
+                
+              </div>
+              <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                className="gap-1 width300"
+              >
+                <label htmlFor="prior_notice_term" className="form-label fw-semibold">
+                  Prior notice term <span className="text-danger">*</span>
+                </label>
+                <div className="d-flex flex-row align-items-center gap-2">
+                  <input
+                    type="text"
+                    className="form-control height43 w-100"
+                    id="prior_notice_term"
+                    placeholder="Enter prior notice term"
+                    {...register("prior_notice_term", {
+                        required: {
+                        value: true,
+                        message: "Prior notice term is required"
+                        },
+                      })
+                    }
+                  />
+                  <span className="fw-semibold ">Days</span>
+                </div>
+                
+              </div>
+          </div>
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              style={{ height: "74px", marginBottom: "16px" }}
+              className="gap-1 w-100"
+            >
+              <label htmlFor="remind_email" className="form-label fw-semibold">
+                Remind email
+              </label>
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="remind_email"
+                placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
+                {...register("remind_email")}
+              />
             </div>
+          </div>
+          <div className="d-flex flex-row align-items-center gap-3 ">
             <div
               style={{ height: "74px", marginBottom: "16px" }}
               className="gap-1 width300"
             >
-              <label htmlFor="contract_term" className="form-label fw-semibold">
-                Contract Term <span className="text-danger">*</span>
+              <label htmlFor="remind_date" className="form-label fw-semibold">
+                Related Term
               </label>
-              <div className="d-flex flex-row align-items-center gap-2">
-                <input
-                  type="text"
-                  className="form-control height43 w-100"
-                  id="contract_term"
-                  placeholder="Enter contract term"
-                />
-                <span className="fw-semibold ">Months</span>
-              </div>
-              
+              <input
+                type="text"
+                className="form-control height43 w-100"
+                id="remind_date"
+                placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
+                {...register("remind_date")}
+              />
             </div>
-            <div
-              style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
-            >
-              <label htmlFor="prior_notice_term" className="form-label fw-semibold">
-                Prior notice term <span className="text-danger">*</span>
-              </label>
-              <div className="d-flex flex-row align-items-center gap-2">
-                <input
-                  type="text"
-                  className="form-control height43 w-100"
-                  id="prior_notice_term"
-                  placeholder="Enter prior notice term"
-                />
-                <span className="fw-semibold ">Days</span>
-              </div>
-              
+            <div style={{marginTop: "16px"}}>
+                  <button style={{fontSize:"14px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add Date</button>
             </div>
-          </div>
-        
-        <div className="d-flex flex-row justify-content-between">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 w-100"
-          >
-            <label htmlFor="remind_email" className="form-label fw-semibold">
-              Remind email
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="remind_email"
-              placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
-            />
           </div>
         </div>
+        {/** Button */}
+        <div
+          style={{ marginTop: "40px" }}
+          className="d-flex gap-3 flex-row align-items-end justify-content-end"
+        >
+          <button
+            onClick={() => dispatch(prevStep())}
+            className="prev-button fw-semibold"
+          >
+            Previous
+          </button>
 
-        <div className="d-flex flex-row align-items-center gap-3 ">
-          <div
-            style={{ height: "74px", marginBottom: "16px" }}
-            className="gap-1 width300"
+          <button
+            type="submit"
+            className="button text-white fw-semibold"
           >
-            <label htmlFor="related_term" className="form-label fw-semibold">
-              Related Term
-            </label>
-            <input
-              type="text"
-              className="form-control height43 w-100"
-              id="related_term"
-              placeholder="Enter related term"
-            />
-          </div>
-          <div style={{marginTop: "16px"}}>
-                <button style={{fontSize:"14px"}} className="addDateBtn fw-semibold"> <span className="fs-1 p-0">+</span> Add Date</button>
-          </div>
+            Save & Next
+          </button>
         </div>
-      </div>
+      </form>
+      {/** Button */}
       {/** Form */}
 
-      {/** Button */}
-      <div
-        style={{ marginTop: "40px" }}
-        className="d-flex gap-3 flex-row align-items-end justify-content-end"
-      >
-        <button
-          onClick={() => dispatch(prevStep())}
-          className="prev-button fw-semibold"
-        >
-          Previous
-        </button>
-
-        <button
-          onClick={() => {
-            dispatch(nextStep());
-          }}
-          className="button text-white fw-semibold"
-        >
-          Save & Next
-        </button>
-      </div>
-      {/** Button */}
+      
 
       {/** Hidden model */}
       <div
