@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import MYT from "../../public/assets/MYT.png";
 import LoginPhoto from "../../public/assets/Group 17.png";
+import "../styles/login.css";
 
 export const Login = () => {
   // UseForm hook

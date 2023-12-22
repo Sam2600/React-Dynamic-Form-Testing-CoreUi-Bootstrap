@@ -1,0 +1,52 @@
+
+/* Form steppers */
+.steppers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  
+    width: 219px;
+    height: 70px;
+    padding: 4px 12px 4px 12px;
+  }
+  
+  .text-current {
+    color: rgba(35, 94, 106, 1);
+  }
+  
+  .text-finish {
+    color: #05c392;
+  }
+  
+  .stepper-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    color: black;
+    padding: 0 0;
+  }
+  
+  .stepper-child > i {
+    font-weight: bolder;
+  }
+  
+  .stepper-child-bar {
+    width: 157px;
+    height: 0px;
+    border: 1px #05c392 solid;
+  }
+  
+  .stepper-child-bar-black {
+    width: 157px;
+    height: 0px;
+    border: 1px black solid;
+  }
+  
+  .stepper-child-bar-gray {
+    width: 157px;
+    height: 0px;
+    border: 1px gray solid;
+  }
+  
+  /* Form steppers */

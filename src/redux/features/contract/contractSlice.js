@@ -6,7 +6,7 @@ const initialState = {
     lifeCycle: {
         remind_dates: [],
     },
-    paymentInformation: {}
+    paymentInformation: []
 }
 
 export const contractSlice = createSlice({
@@ -16,30 +16,30 @@ export const contractSlice = createSlice({
     reducers: {
 
         addGeneralInformation: (state, action) => {
-            console.log(action.payload);
             state.generalInformation = action.payload;
         },
 
         addcounterPartyInformation: (state, action) => {
-            console.log(action.payload);
             state.counterPartyInformation = action.payload;
         },
 
         addlifeCycle: (state, action) => {
-            console.log(action.payload);
             state.lifeCycle = action.payload;
         },
 
         addpaymentInformation: (state, action) => {
-            console.log(action.payload);
-            state.paymentInformation = action.payload;
+            state.paymentInformation.push(action.payload);
+        },
+
+        removePaymentInformation: (state, action) => {
+            state.paymentInformation = state.paymentInformation.filter( pi =>  pi.payment_date !== action.payload);
         }
     
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {addGeneralInformation, addcounterPartyInformation, addlifeCycle, addpaymentInformation} = contractSlice.actions;
+export const {addGeneralInformation, addcounterPartyInformation, addlifeCycle, addpaymentInformation, removePaymentInformation} = contractSlice.actions;
 
 
 export default contractSlice.reducer;

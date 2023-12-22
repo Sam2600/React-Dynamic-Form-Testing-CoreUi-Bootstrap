@@ -1,0 +1,74 @@
+/* Login */
+.height580 {
+    height: 580px;
+  }
+  
+  .width1200 {
+    width: 1200px !important;
+  }
+  
+  .login-photo {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* This is magical! */
+  .width464 {
+    width: 464px;
+  }
+  
+  /* This is as long as screen size is greater than 975px we important width class :) */
+  @media (min-width: 975px) {
+    .col-xl-4.width464 {
+      width: 464px !important;
+    }
+  }
+  /* This is magical! */
+  
+  @media (max-width: 762px) {
+    /* For medium screens and above */
+    .d-flex {
+      flex-direction: column;
+      gap: 40px; /* Change flex direction to row for medium screens */
+    }
+  }
+  
+  .login-form-title {
+    width: 284px;
+    height: 104px;
+    margin: 0 auto;
+  }
+  
+  .login-form-header {
+    height: 65px;
+    margin-bottom: 29px;
+  }
+  
+  .login-input-container {
+    width: 400px;
+    height: 84px;
+  }
+  
+  .MYT-image {
+    width: 166px;
+    height: 50px;
+    margin: 0 auto;
+  }
+  
+  .p32 {
+    padding: 32px 32px;
+  }
+  
+  .login-button {
+    border: none;
+    height: 48px;
+    background: linear-gradient(
+      89.99deg,
+      #235b6a -1.55%,
+      rgba(94, 184, 202, 0.97) 100.2%,
+      rgba(160, 8, 248, 0.72) 100.22%,
+      #235e6a 100.23%
+    );
+  }
+  /* Login */
+  

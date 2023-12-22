@@ -1,37 +1,42 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
-import { useForm } from "react-hook-form";
-import { addpaymentInformation } from "../redux/features/contract/contractSlice";
+import { useFieldArray, useForm } from "react-hook-form";
+import { addpaymentInformation, removePaymentInformation } from "../redux/features/contract/contractSlice";
 
 export const PaymentInformation = () => {
   //
   const dispatch = useDispatch();
 
-  const contract = useSelector((state) => state.contract);
+  const [rowNum ,setRowNum] = useState(0);
 
-  const lifeCycle = contract;
+  const {paymentInformation} = useSelector((state) => state.contract);
 
-  const {
-    total_contract_amount,
-    payment_type,
-    contract_number,
-    payment_term,
-    payment_date,
-    file,
-  } = lifeCycle;
+  console.log(paymentInformation[0])
+
+  // const {
+  //   total_contract_amount,
+  //   payment_type,
+  //   contract_number,
+  //   payment_term,
+  //   payment_date,
+  //   amount,
+  //   file,
+  // } = paymentInformation[rowNum];
 
   // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    defaultValues: {
-      total_contract_amount: total_contract_amount,
-      payment_type: payment_type,
-      contract_number: contract_number,
-      payment_term: payment_term,
-      payment_date: payment_date,
-      file: file,
-    },
+    // defaultValues: {
+    //   total_contract_amount: total_contract_amount,
+    //   payment_type: payment_type,
+    //   contract_number: contract_number,
+    //   payment_term: payment_term,
+    //   payment_date: payment_date,
+    //   amount: amount,
+    //   file: file,
+    // },
   });
 
   // Useful Form states
@@ -44,16 +49,33 @@ export const PaymentInformation = () => {
     isValid,
   } = formState;
 
+  // Dynamic field array
+  // Preparing for dynamic field array with the hook
+  const { fields, append, remove, insert } = useFieldArray({
+    name: "remind_dates", // This is like registering which field is gonna used as dynamic field
+    control,
+  });
+  
+
   // handle onSubmit
   const onSubmit = (data) => {
-    // if (data.attachment.length > 0) {
-    //   const reader = new FileReader();
-    //   reader.readAsDataURL(data.attachment[0]);
-    // }
 
-    dispatch(addpaymentInformation(data));
-    console.log(data.attachment);
+    setRowNum( rowNum + 1);
+
+    const uploadedFile = data.file.length > 0 ? data.file[0].name : null;
+
+    const formData = {...data, file: uploadedFile};
+
+    dispatch(addpaymentInformation(formData));
+
+    reset();
   };
+
+  // const handleAddRowNum = () => {
+  //   setRowNum( rowNum + 1);
+  //   handleSubmit(onsubmit)
+  //   reset();
+  // }
 
   return (
     <>
@@ -198,8 +220,9 @@ export const PaymentInformation = () => {
             </div>
           </div>
 
-          <div className="mx-auto mt-3">
-            <button style={{ fontSize: "17px" }} className="addBtn fw-semibold">
+          <div className=" d-flex flex-column align-items-center gap-3 mt-3">
+            <button 
+              type="submit" style={{ fontSize: "17px" }} className="addBtn fw-semibold">
               {" "}
               <span
                 style={{ marginBottom: "7px", marginRight: "5px" }}
@@ -209,6 +232,45 @@ export const PaymentInformation = () => {
               </span>{" "}
               Add{" "}
             </button>
+
+             {/** Contract table */}
+             <div className="shadow-lg w-100 px-3">
+              {paymentInformation.length ?
+              
+                <table>
+                  <thead className="t-header">
+                    <tr>
+                      <th>No</th>
+                      <th>Payment Time</th>
+                      <th>Payment Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="t-body">
+                    {
+                        paymentInformation.map( (pi,index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{pi.payment_term}</td>
+                              <td>{pi.payment_date}</td>
+                              <td>{pi.amount}</td>
+                              <td>
+                                <button type="button" onClick={()=>dispatch(removePaymentInformation(pi.payment_date))} className="trash-button">
+                                  <i className="bi bi-trash fs-5 text-danger"></i>
+                                </button>
+                              </td>
+                          </tr>
+                          )
+                        })
+                    }
+                  </tbody>
+                </table>
+                :<></>
+                }
+              </div>
+              {/** Contract table */}
           </div>
 
           <div
