@@ -122,12 +122,18 @@ export const LifeCycle = () => {
     control,
   });
 
-  // Remind dates (looping with fields for dynamic fields)
+  // Remind dates
+
+  console.log(fields);
+
   let dates = fields.map((field, index) => (
-    <div className="d-flex flex-row align-items-center gap-3" key={field.id}>
+    <div
+      className="d-flex flex-row bg-danger align-items-center gap-3"
+      key={field.id}
+    >
       <div
         style={{ height: "74px", marginBottom: "16px" }}
-        className="gap-1 width300"
+        className="gap-1 bg-primary width300"
       >
         <label htmlFor="remind_dates" className="form-label fw-semibold">
           Remind Date
@@ -162,7 +168,7 @@ export const LifeCycle = () => {
       ) : (
         <div style={{ marginTop: "16px" }}>
           <button onClick={() => remove(index)} className="date-delete-button">
-            <i className="bi bi-trash text-danger"></i>
+            <i className="bi bi-trash fs-2 text-danger"></i>
           </button>
         </div>
       )}
@@ -304,7 +310,37 @@ export const LifeCycle = () => {
             </div>
           </div>
 
-          <div className="d-flex flex-column gap-3">{dates.reverse()}</div>
+          <div className="d-flex flex-column gap-3 ">
+            <div className="d-flex flex-row align-items-center gap-3">
+              {/* <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                // className="gap-1 width300"
+                className="gap-1 width300"
+              >
+                <label
+                  htmlFor="remind_dates"
+                  className="form-label fw-semibold"
+                >
+                  Remind Date
+                </label>
+                <input
+                  type="date"
+                  className="form-control height43 w-100"
+                  id="remind_dates"
+                  placeholder="sam@gmail.com,  jimmy@gmail.com,  ..."
+                  {...register("remind_dates")}
+                /> 
+               
+              </div> */}
+              <div
+                style={{ height: "74px", marginBottom: "16px" }}
+                // className="gap-1 width300"
+                className="gap-1 width300"
+              >
+                {dates}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/** Button */}

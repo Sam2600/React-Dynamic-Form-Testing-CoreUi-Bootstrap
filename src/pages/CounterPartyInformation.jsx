@@ -6,10 +6,15 @@ import { useForm } from "react-hook-form";
 import { addcounterPartyInformation } from "../redux/features/contract/contractSlice";
 
 export const CounterPartyInformation = () => {
+  //
   const dispatch = useDispatch();
 
-  const { counterPartyInformation } = useSelector((state) => state.contract);
+  // And Server Fetching data will be stored in serverSideFetches
+  const { counterPartyInformation, serverSideFetches } = useSelector(
+    (state) => state.contract
+  );
 
+  // Destructuring for the form states
   const {
     counter_party,
     signer,
@@ -21,6 +26,39 @@ export const CounterPartyInformation = () => {
     phone,
     address,
   } = counterPartyInformation;
+
+  // Destructuring the states to loop the each select box
+  const { counter_parties } = serverSideFetches;
+
+  // This is for flag checking if 1 => "A", 2 => "B", etc..
+  const returnType = (ct) => {
+    switch (ct) {
+      case 1:
+        return "Type A";
+
+      case 2:
+        return "Type B";
+
+      case 3:
+        return "Type C";
+
+      default:
+        return "Type D";
+    }
+  };
+
+  // to render the selection options
+  const counterParties = counter_parties?.length ? (
+    counter_parties.map((ct) => {
+      return (
+        <option key={ct} value={ct}>
+          {returnType(ct)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
 
   // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
@@ -80,17 +118,16 @@ export const CounterPartyInformation = () => {
                 id="counter_party"
                 className="form-select height43"
                 aria-label="Default select example"
+                disabled={counter_parties.length ? false : true}
                 {...register("counter_party", {
                   required: {
-                    value: true,
-                    message: "Contract title is required",
+                    value: counter_parties.length ? true : false,
+                    message: "Conunter party is required",
                   },
                 })}
               >
-                <option>Select contract type</option>
-                <option value={"Type A"}>Type A</option>
-                <option value={"Type B"}>Type B</option>
-                <option value={"Type C"}>Type C</option>
+                <option>Select Counter parties</option>
+                {counterParties}
               </select>
             </div>
             <div

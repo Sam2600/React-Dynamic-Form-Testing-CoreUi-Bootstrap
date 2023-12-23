@@ -1,18 +1,36 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { nextStep } from "../redux/features/step/stepSlice";
-import { addGeneralInformation } from "../redux/features/contract/contractSlice";
+import { axiosClient } from "../axios/axiosClient";
+import {
+  addGeneralInformation,
+  fetchGeneralForContracts,
+  deleteContract,
+  addContract,
+} from "../redux/features/contract/contractSlice";
 
 export const GeneralInformation = () => {
   //
   const dispatch = useDispatch();
 
-  const { generalInformation } = useSelector((state) => state.contract);
+  // This is create AsyncThunk's fetching general state;
+  // Even though we can do it with normal useEffect, I am testing with rtk
 
+  //Do server side fetching with axios For contracts, contract_types, relevant department
+  // useEffect(() => {
+  //   dispatch(fetchGeneralForContracts())
+  // }, [dispatch]);
+
+  // And Server Fetching data will be stored in serverSideFetches
+  const { generalInformation, serverSideFetches } = useSelector(
+    (state) => state.contract
+  );
+
+  // Destructuring for the form states
   const {
     contract_title,
     contract_type,
@@ -25,8 +43,69 @@ export const GeneralInformation = () => {
     signer_position,
   } = generalInformation;
 
+  // Destructuring the states to loop the each select box
+  const { contract_types, relevant_departments, signer_positions, contracts } =
+    serverSideFetches;
+
+  // This is for flag checking if 1 => "A", 2 => "B", etc..
+  const returnType = (ct) => {
+    switch (ct) {
+      case 1:
+        return "Type A";
+
+      case 2:
+        return "Type B";
+
+      case 3:
+        return "Type C";
+
+      default:
+        return "Type D";
+    }
+  };
+
+  // to render the selection options
+  const contractTypes = contract_types?.length ? (
+    contract_types.map((ct) => {
+      return (
+        <option key={ct} value={ct}>
+          {returnType(ct)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
+
+  // to render the selection options
+  const relevantDepartments = relevant_departments?.length ? (
+    relevant_departments.map((rd) => {
+      return (
+        <option key={rd} value={rd}>
+          {returnType(rd)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
+
+  // to render the selection options
+  const signerPositions = signer_positions?.length ? (
+    signer_positions.map((sp) => {
+      return (
+        <option key={sp} value={sp}>
+          {returnType(sp)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
+
   // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
+    //
     defaultValues: {
       contract_title: contract_title,
       contract_type: contract_type,
@@ -56,6 +135,35 @@ export const GeneralInformation = () => {
     dispatch(nextStep());
   };
 
+  // For model box
+  const [err, setErr] = useState("");
+
+  const contract_type_ref = useRef("");
+
+  // add contract type for server-side
+  const handleContractTypeAdd = (e) => {
+    //
+    e.preventDefault();
+
+    const value = contract_type_ref.current?.value;
+
+    if (!value) {
+      setErr("Contract Type name is required");
+    } else {
+      dispatch(addContract(value));
+      console.log(value);
+      setErr("");
+      contract_type_ref.current.value = "";
+    }
+  };
+
+  // delete contract type for server-side
+  const handleContractDelete = (id) => {
+    dispatch(deleteContract(id));
+  };
+
+  // model
+
   return (
     <>
       {/** Title */}
@@ -73,7 +181,7 @@ export const GeneralInformation = () => {
           <div className="d-flex flex-row justify-content-between">
             <div
               style={{ height: "74px", marginBottom: "16px" }}
-              className="gap-1 width300"
+              className="gap-1 mb-3 width300"
             >
               <label
                 htmlFor="contract_title"
@@ -106,17 +214,18 @@ export const GeneralInformation = () => {
                   id="contract_type"
                   className="form-select height43"
                   aria-label="Default select example"
+                  //making auto disable if length is zero
+                  disabled={!contract_type?.length ? true : false}
                   {...register("contract_type", {
                     required: {
-                      value: true,
+                      // If no department to choose, we make it reqired false
+                      value: !contract_type?.length ? false : true,
                       message: "Contract type is required",
                     },
                   })}
                 >
                   <option>Select Contract Type</option>
-                  <option value={"Type A"}>Type A</option>
-                  <option value={"Type B"}>Type A</option>
-                  <option value={"Type C"}>Type A</option>
+                  {contractTypes}
                 </select>
 
                 <button
@@ -152,17 +261,18 @@ export const GeneralInformation = () => {
                 id="relevant_department"
                 className="form-select height43"
                 aria-label="Default select example"
+                //making auto disable if length is zero
+                disabled={!relevant_departments?.length ? true : false}
                 {...register("relevant_department", {
                   required: {
-                    value: true,
+                    // If no department to choose, we make it reqired false
+                    value: !relevant_departments.length ? false : true,
                     message: "Contract title is required",
                   },
                 })}
               >
                 <option>Select relevant department</option>
-                <option value={"Department A"}>Department A</option>
-                <option value={"Department B"}>Department B</option>
-                <option value={"Department C"}>Department C</option>
+                {relevantDepartments}
               </select>
             </div>
           </div>
@@ -270,13 +380,25 @@ export const GeneralInformation = () => {
               >
                 Signer Position
               </label>
-              <input
+              <select
+                id="signer_position"
+                className="form-select height43"
+                aria-label="Default select example"
+                //making auto disable if length is zero
+                disabled={!signer_positions?.length ? true : false}
+                {...register("signer_position")}
+              >
+                <option>Select Signer Position</option>
+                {signerPositions}
+              </select>
+
+              {/* <input
                 type="text"
                 className="form-control height43 w-100"
                 id="signer_position"
                 placeholder="Enter signer position"
                 {...register("signer_position")}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -325,23 +447,33 @@ export const GeneralInformation = () => {
             <div className="modal-body d-flex flex-column gap-4">
               {/** Add Contract Type */}
               <div className="d-flex flex-row gap-4">
-                <div style={{ height: "74px" }} className="gap-1 width300">
+                <div
+                  style={{ height: "74px" }}
+                  // style={err ? { height: "94px" } : { height: "74px" }}
+                  className="gap-1 width300"
+                >
                   <label
                     htmlFor="contract_type_name"
                     className="form-label fw-semibold"
                   >
                     Contract type name <span className="text-danger"> * </span>
                   </label>
+
                   <input
+                    ref={contract_type_ref}
                     type="text"
                     className="form-control height43 w-100"
                     id="contract_type_name"
                     placeholder="Enter contract type name"
                   />
+                  {/* <p className="text-danger mx-2 my-1">{err && err}</p> */}
                 </div>
-
                 <div className="d-flex flex-row align-items-end justify-content-end">
-                  <button className="model-button text-white fw-semibold">
+                  <button
+                    onClick={handleContractTypeAdd}
+                    type="button"
+                    className="model-button text-white fw-semibold"
+                  >
                     Add
                   </button>
                 </div>
@@ -349,46 +481,45 @@ export const GeneralInformation = () => {
               {/** Add Contract Type */}
 
               {/** Contract table */}
-              <div className="shadow-lg table-container">
-                <table>
-                  <thead className="t-header">
-                    <tr>
-                      <th>No</th>
-                      <th>Contract Type</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody className="t-body">
-                    <tr>
-                      <td>1</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Business Type</td>
-                      <td>
-                        <button className="trash-button">
-                          <i className="bi bi-trash fs-5 text-danger"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {contracts.length ? (
+                <div className="shadow-lg table-container">
+                  <table>
+                    <thead className="t-header">
+                      <tr>
+                        <th>No</th>
+                        <th>Payment Time</th>
+                        <th>Payment Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="t-body">
+                      {contracts.map((ct) => {
+                        return (
+                          <tr key={ct.id}>
+                            <td>{ct.id}</td>
+                            <td>{ct.payment_term}</td>
+                            <td>{ct.payment_date}</td>
+                            <td>{ct.amount}</td>
+                            <td>
+                              <button
+                                type="button"
+                                onClick={() => handleContractDelete(ct.id)}
+                                className="trash-button"
+                              >
+                                <i className="bi bi-trash fs-5 text-danger"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <></>
+              )}
+
               {/** Contract table */}
             </div>
             {/** Model body */}

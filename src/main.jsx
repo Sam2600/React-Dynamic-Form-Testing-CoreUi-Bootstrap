@@ -32,8 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           />
         </Route>
 
-        <Route path="/add-contract" 
-          element={<DefaultLayout />}>
+        <Route path="/add-contract" element={<DefaultLayout />}>
           <Route index element={<ContractAddPages />} />
         </Route>
       </Routes>

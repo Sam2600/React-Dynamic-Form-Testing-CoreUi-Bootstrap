@@ -1,5 +1,5 @@
 .container-whp {
-  position:absolute;
+  position: absolute;
   left: 263px;
   width: calc(100% - 263px);
   height: 1020px;
@@ -13,7 +13,6 @@
   /* background-color: red; */
 }
 
-  
 .general-form-container {
   padding-right: 30px;
   padding-left: 32px;
@@ -21,229 +20,250 @@
   padding-bottom: 32px;
   border-radius: 8px;
 }
-  
-  .button {
-    border: none;
-    background: linear-gradient(
-      89.99deg,
-      #235b6a -1.55%,
-      rgba(94, 184, 202, 0.97) 100.2%,
-      rgba(160, 8, 248, 0.72) 100.22%,
-      #235e6a 100.23%
-    );
-    width: 125px;
-    height: 44px;
-    padding: 8px, 16px, 8px, 16px;
-    border-radius: 8px;
-    gap: 12px;
-  }
-  
-  .prev-button {
-    color: #235e6a;
-    background-color: #e9eff0;
-    border-color: #235e6a;
-  
-    width: 125px;
-    height: 44px;
-    padding: 8px, 16px, 8px, 16px;
-    border-radius: 8px;
-    gap: 12px;
-  }
-  
+
+.button {
+  border: none;
+  background: linear-gradient(
+    89.99deg,
+    #235b6a -1.55%,
+    rgba(94, 184, 202, 0.97) 100.2%,
+    rgba(160, 8, 248, 0.72) 100.22%,
+    #235e6a 100.23%
+  );
+  width: 125px;
+  height: 44px;
+  padding: 8px, 16px, 8px, 16px;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.prev-button {
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
+
+  width: 125px;
+  height: 44px;
+  padding: 8px, 16px, 8px, 16px;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.width300 {
+  width: 300px;
+}
+
+.width677 {
+  width: 677px;
+}
+
+.width471 {
+  width: 471px;
+}
+
+.height133 {
+  height: 133px;
+}
+
+.height43 {
+  height: 43px;
+}
+
+.gap12 {
+  gap: 12px;
+}
+
+.date-delete-button {
+  color: white;
+  border-color: rgba(249, 96, 142, 1);
+  border-width: 1.5px;
+  background-color: rgb(237, 217, 225);
+  width: 43px;
+  height: 43px;
+  border-radius: 8px;
+  padding: 8px, 16px, 8px, 16px;
+}
+
+.date-delete-button i {
+  font-size: 27px;
+}
+
+.date-delete-button:hover {
+  background-color: rgba(249, 96, 142, 1);
+}
+
+.date-delete-button i:hover {
+  color: white !important;
+}
+
+/* Model */
+.width700 {
+  max-width: 700px !important;
+}
+
+.width543 {
+  max-width: 543 !important;
+  padding-top: 24px;
+  padding-left: 58.5px !important;
+  padding-right: 58.5px !important;
+}
+
+.model-button {
+  border: none;
+  background: linear-gradient(
+    89.99deg,
+    #235b6a -1.55%,
+    rgba(94, 184, 202, 0.97) 100.2%,
+    rgba(160, 8, 248, 0.72) 100.22%,
+    #235e6a 100.23%
+  );
+  width: 90px;
+  height: 43px;
+  padding: 8px, 16px, 8px, 16px;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.model-header {
+  background: linear-gradient(
+    89.99deg,
+    #235b6a -1.55%,
+    rgba(94, 184, 202, 0.97) 100.2%,
+    rgba(160, 8, 248, 0.72) 100.22%,
+    #235e6a 100.23%
+  );
+
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 24px;
+  padding-right: 20px;
+}
+
+.addContract {
+  width: 414px;
+  height: 74px;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 107px;
+  height: 44px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 16px;
+  padding-left: 16px;
+  border-radius: 8px;
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
+}
+
+.addDateBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 147px;
+  height: 44px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 16px;
+  padding-left: 16px;
+  border-radius: 8px;
+  color: #235e6a;
+  background-color: #e9eff0;
+  border-color: #235e6a;
+}
+
+.addDateBtn span {
+  padding: 0;
+  font-size: 3rem;
+  margin-bottom: 10px;
+  margin-right: 12px;
+}
+
+/* Table */
+.table-container {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 14.5px;
+  border-radius: 8px;
+  border: 1px solid #dddddd;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.t-header {
+  height: 56px;
+}
+
+.t-header tr {
+  border-bottom: 1px solid#ddd;
+}
+
+.t-body tr {
+  height: 48px;
+  border-bottom: 1px solid#ddd;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 8px;
+}
+
+.trash-button {
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px 4px;
+}
+
+.trash-button:hover {
+  background-color: rgba(249, 96, 142, 1);
+}
+
+.trash-button i:hover {
+  color: white !important;
+}
+
+/* Table */
+/* Model */
+
+.addContract:hover {
+  background: #235e6a !important;
+  color: white;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #235e6a !important;
+  color: white;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
   .width300 {
-    width: 300px;
+    width: 200px;
   }
-  
-  .width677 {
-    width: 677px;
+}
+
+@media screen and (max-width: 742px) {
+  .steppers {
+    width: 145px;
   }
-  
-  .width471 {
-    width: 471px;
+  .stepper-child-bar {
+    width: 70px;
   }
-  
-  .height133 {
-    height: 133px;
+}
+
+@media screen and (max-width: 576px) {
+  .width300 {
+    width: 150px;
   }
-  
-  .height43 {
-    height: 43px;
-  }
-  
-  .gap12 {
-    gap: 12px;
-  }
-  
-  .date-delete-button {
-    border: none;
-    width: 43px;
-    height: 43px;
-    border-radius: 4px 4px;
-  }
-  
-  /* Model */
-  .width700 {
-    max-width: 700px !important;
-  }
-  
-  .model-button {
-    border: none;
-    background: linear-gradient(
-      89.99deg,
-      #235b6a -1.55%,
-      rgba(94, 184, 202, 0.97) 100.2%,
-      rgba(160, 8, 248, 0.72) 100.22%,
-      #235e6a 100.23%
-    );
-    width: 90px;
-    height: 43px;
-    padding: 8px, 16px, 8px, 16px;
-    border-radius: 8px;
-    gap: 12px;
-  }
-  
-  .model-header {
-    background: linear-gradient(
-      89.99deg,
-      #235b6a -1.55%,
-      rgba(94, 184, 202, 0.97) 100.2%,
-      rgba(160, 8, 248, 0.72) 100.22%,
-      #235e6a 100.23%
-    );
-  
-    padding-top: 13px;
-    padding-bottom: 13px;
-    padding-left: 24px;
-    padding-right: 20px;
-  }
-  
-  .addContract {
-    width: 414px;
-    height: 74px;
-  }
-  
-  .addBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 107px;
-    height: 44px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-right: 16px;
-    padding-left: 16px;
-    border-radius: 8px;
-    color: #235e6a;
-    background-color: #e9eff0;
-    border-color: #235e6a;
-  }
-  
-  .addDateBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 147px;
-    height: 44px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-right: 16px;
-    padding-left: 16px;
-    border-radius: 8px;
-    color: #235e6a;
-    background-color: #e9eff0;
-    border-color: #235e6a;
-  }
-  
-  .addDateBtn span {
-    padding: 0;
-    font-size: 3rem;
-    margin-bottom: 10px;
-    margin-right: 12px;
-  }
-  
-  /* Table */
-  .table-container {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 14.5px;
-    border-radius: 8px;
-    border: 1px solid #dddddd;
-  }
-  
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .t-header {
-    height: 56px;
-  }
-  
-  .t-header tr {
-    border-bottom: 1px solid#ddd;
-  }
-  
-  .t-body tr {
-    height: 48px;
-    border-bottom: 1px solid#ddd;
-  }
-  
-  td,
-  th {
-    text-align: left;
-    padding: 8px;
-  }
-  
-  .trash-button {
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 4px 4px;
-  }
-  
-  .trash-button:hover {
-    background-color: rgba(249, 96, 142, 1);
-  }
-  
-  .trash-button i:hover {
-    color: white !important;
-  }
-  
-  /* Table */
-  /* Model */
-  
-  .addContract:hover {
-    background: #235e6a !important;
-    color: white;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  }
-  
-  .button:hover {
-    background-color: #235e6a !important;
-    color: white;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .width300 {
-      width: 200px;
-    }
-  }
-  
-  @media screen and (max-width: 742px) {
-    .steppers {
-      width: 145px;
-    }
-    .stepper-child-bar {
-      width: 70px;
-    }
-  }
-  
-  @media screen and (max-width: 576px) {
-    .width300 {
-      width: 150px;
-    }
-  }
-  
-  
+}

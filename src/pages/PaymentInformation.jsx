@@ -4,18 +4,24 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nextStep, prevStep } from "../redux/features/step/stepSlice";
 import { useFieldArray, useForm } from "react-hook-form";
-import { addpaymentInformation, removePaymentInformation } from "../redux/features/contract/contractSlice";
+import {
+  addpaymentInformation,
+  removePaymentInformation,
+} from "../redux/features/contract/contractSlice";
+import { axiosClient } from "../axios/axiosClient";
 
 export const PaymentInformation = () => {
   //
   const dispatch = useDispatch();
 
-  const [rowNum ,setRowNum] = useState(0);
+  const [rowNum, setRowNum] = useState(0);
 
-  const {paymentInformation} = useSelector((state) => state.contract);
+  // And Server Fetching data will be stored in serverSideFetches
+  const contract = useSelector((state) => state.contract);
 
-  console.log(paymentInformation[0])
+  const { paymentInformation, serverSideFetches } = contract;
 
+  // Destructuring for the form states
   // const {
   //   total_contract_amount,
   //   payment_type,
@@ -25,6 +31,52 @@ export const PaymentInformation = () => {
   //   amount,
   //   file,
   // } = paymentInformation[rowNum];
+
+  // Destructuring the states to loop the each select box
+  const { payment_types, payment_terms } = serverSideFetches;
+
+  // This is for flag checking if 1 => "A", 2 => "B", etc..
+  const returnType = (pt) => {
+    switch (pt) {
+      case 1:
+        return "Type A";
+
+      case 2:
+        return "Type B";
+
+      case 3:
+        return "Type C";
+
+      default:
+        return "Type D";
+    }
+  };
+
+  // to render the selection options
+  const paymentTypes = payment_types?.length ? (
+    payment_types.map((pt) => {
+      return (
+        <option key={pt} value={pt}>
+          {returnType(pt)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
+
+  // to render the selection options
+  const paymentTerms = payment_terms?.length ? (
+    payment_terms.map((pt) => {
+      return (
+        <option key={pt} value={pt}>
+          {returnType(pt)}
+        </option>
+      );
+    })
+  ) : (
+    <></>
+  );
 
   // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
@@ -49,33 +101,42 @@ export const PaymentInformation = () => {
     isValid,
   } = formState;
 
-  // Dynamic field array
-  // Preparing for dynamic field array with the hook
-  const { fields, append, remove, insert } = useFieldArray({
-    name: "remind_dates", // This is like registering which field is gonna used as dynamic field
-    control,
-  });
-  
-
   // handle onSubmit
   const onSubmit = (data) => {
-
-    setRowNum( rowNum + 1);
+    //
+    setRowNum(rowNum + 1);
 
     const uploadedFile = data.file.length > 0 ? data.file[0].name : null;
 
-    const formData = {...data, file: uploadedFile};
+    const formData = { ...data, file: uploadedFile };
 
     dispatch(addpaymentInformation(formData));
 
     reset();
   };
 
-  // const handleAddRowNum = () => {
-  //   setRowNum( rowNum + 1);
-  //   handleSubmit(onsubmit)
-  //   reset();
-  // }
+  // handle form register complete
+  const handleFormRegister = () => {
+    // destructuring the state
+    const {
+      generalInformation,
+      counterPartyInformation,
+      lifeCycle,
+      paymentInformation,
+    } = contract;
+
+    // making to give the data for registering
+    const serverFormData = {
+      generalInformation,
+      counterPartyInformation,
+      lifeCycle,
+      paymentInformation,
+    };
+    console.log(serverFormData);
+    //axiosClient.post("/contracts", serverFormData).then(res => {
+    // Do... something. Actually model box only should appear only after success post to server
+    //})
+  };
 
   return (
     <>
@@ -127,17 +188,16 @@ export const PaymentInformation = () => {
                   id="payment_type"
                   className="form-select height43"
                   aria-label="Default select example"
+                  disabled={payment_types.length ? false : true}
                   {...register("payment_type", {
                     required: {
-                      value: true,
+                      value: payment_types.length ? true : false,
                       message: "Payment type is required",
                     },
                   })}
                 >
                   <option>Select Payment Type</option>
-                  <option value={"Payment A"}>Payment A</option>
-                  <option value={"Payment B"}>Payment B</option>
-                  <option value={"Payment C"}>Payment C</option>
+                  {paymentTypes}
                 </select>
               </div>
             </div>
@@ -171,17 +231,16 @@ export const PaymentInformation = () => {
                   id="payment_term"
                   className="form-select height43"
                   aria-label="Default select example"
+                  disabled={payment_terms.length ? false : true}
                   {...register("payment_term", {
                     required: {
-                      value: true,
+                      value: payment_terms.length ? true : false,
                       message: "Payment term is required",
                     },
                   })}
                 >
                   <option defaultValue={0}>Select Payment Term</option>
-                  <option value={"Term A"}>Term A</option>
-                  <option value={"Term B"}>Term B</option>
-                  <option value={"Term C"}>Term C</option>
+                  {paymentTerms}
                 </select>
               </div>
             </div>
@@ -221,8 +280,11 @@ export const PaymentInformation = () => {
           </div>
 
           <div className=" d-flex flex-column align-items-center gap-3 mt-3">
-            <button 
-              type="submit" style={{ fontSize: "17px" }} className="addBtn fw-semibold">
+            <button
+              type="submit"
+              style={{ fontSize: "17px" }}
+              className="addBtn fw-semibold"
+            >
               {" "}
               <span
                 style={{ marginBottom: "7px", marginRight: "5px" }}
@@ -233,10 +295,9 @@ export const PaymentInformation = () => {
               Add{" "}
             </button>
 
-             {/** Contract table */}
-             <div className="shadow-lg w-100 px-3">
-              {paymentInformation.length ?
-              
+            {/** Contract table */}
+            <div className="shadow-lg w-100 px-3">
+              {paymentInformation.length ? (
                 <table>
                   <thead className="t-header">
                     <tr>
@@ -248,29 +309,36 @@ export const PaymentInformation = () => {
                     </tr>
                   </thead>
                   <tbody className="t-body">
-                    {
-                        paymentInformation.map( (pi,index) => {
-                          return (
-                            <tr key={index}>
-                              <td>{index + 1}</td>
-                              <td>{pi.payment_term}</td>
-                              <td>{pi.payment_date}</td>
-                              <td>{pi.amount}</td>
-                              <td>
-                                <button type="button" onClick={()=>dispatch(removePaymentInformation(pi.payment_date))} className="trash-button">
-                                  <i className="bi bi-trash fs-5 text-danger"></i>
-                                </button>
-                              </td>
-                          </tr>
-                          )
-                        })
-                    }
+                    {paymentInformation.map((pi, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{pi.payment_term}</td>
+                          <td>{pi.payment_date}</td>
+                          <td>{pi.amount}</td>
+                          <td>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                dispatch(
+                                  removePaymentInformation(pi.payment_date)
+                                )
+                              }
+                              className="trash-button"
+                            >
+                              <i className="bi bi-trash fs-5 text-danger"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
-                :<></>
-                }
-              </div>
-              {/** Contract table */}
+              ) : (
+                <></>
+              )}
+            </div>
+            {/** Contract table */}
           </div>
 
           <div
@@ -301,13 +369,61 @@ export const PaymentInformation = () => {
             Previous
           </button>
 
-          <button type="submit" className="button text-white fw-semibold">
+          <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            disabled={paymentInformation.length ? false : true}
+            onClick={handleFormRegister}
+            className="button text-white fw-semibold"
+          >
             Save
           </button>
         </div>
         {/** Button */}
       </form>
       {/** Form */}
+
+      {/** Hidden model */}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered width543">
+          <div className="modal-content">
+            {/** Model header */}
+            <div className="modal-header model-header">
+              <h1
+                className="modal-title text-white fw-semibold fs-5"
+                id="exampleModalLabel"
+              >
+                Success
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            {/** Model header */}
+
+            {/** Model body */}
+            <div className="modal-body d-flex flex-column gap-4">
+              <div className="d-flex flex-column align-items-center mx-auto">
+                <h3>Success</h3>
+                <p>You have been created new contract successfully</p>
+                <button className="btn btn-success">Go to contract list</button>
+              </div>
+            </div>
+            {/** Model body */}
+          </div>
+        </div>
+      </div>
+      {/** Hidden model */}
     </>
   );
 };

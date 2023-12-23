@@ -6,11 +6,10 @@ import { Stepper } from "../components/Stepper";
 import { FormTitle } from "../components/FormTitle";
 
 export const DefaultLayout = () => {
-
   return (
     <FormContainer>
       <FormTitle title={"Add Contract"} />
-      <Stepper/>
+      <Stepper />
     </FormContainer>
   );
 };
