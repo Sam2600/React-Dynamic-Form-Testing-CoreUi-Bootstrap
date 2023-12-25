@@ -23,6 +23,11 @@ const initialState = {
         life_cycle_types: [],
         payment_types: [],
         payment_terms: []
+    },
+
+    totalAmount_ai: {
+        total_amount: null,
+        id: 0
     }
 }
 
@@ -97,9 +102,21 @@ export const contractSlice = createSlice({
         },
 
         removePaymentInformation: (state, action) => {
-            state.paymentInformation = state.paymentInformation.filter( pi =>  pi.payment_date !== action.payload);
+            state.paymentInformation = state.paymentInformation.filter(pi => pi.id !== action.payload);
+            if (!state.paymentInformation.length) {
+                state.totalAmount_ai.total_amount = null
+            }
+
+            console.log(state.totalAmount_ai.total_amount);
+        },
+
+        addTotalAmount: (state, action) => {
+            state.totalAmount_ai.total_amount = action.payload;
+        },
+        
+        increaseId: (state) => {
+            state.totalAmount_ai.id = state.totalAmount_ai.id + 1;
         }
-    
     },
 
     // Server sides
@@ -133,7 +150,7 @@ export const contractSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {addGeneralInformation, addcounterPartyInformation, addlifeCycle, addpaymentInformation, removePaymentInformation} = contractSlice.actions;
+export const {addGeneralInformation, addcounterPartyInformation, addlifeCycle, addpaymentInformation, removePaymentInformation, addTotalAmount, increaseId} = contractSlice.actions;
 
 
 export default contractSlice.reducer;

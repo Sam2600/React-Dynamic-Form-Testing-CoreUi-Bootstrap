@@ -359,7 +359,7 @@ export const PdfDownload = ({ contract }) => {
                   </Text>
                 </View>
               </View>
-              <View>
+              <View style={styles.flex_border_bottom}>
                 <View style={styles.col4_border_right}>
                   <Text style={styles.centeredText}>Position</Text>
                 </View>
@@ -397,7 +397,7 @@ export const PdfDownload = ({ contract }) => {
                   </Text>
                 </View>
               </View>
-              <View>
+              <View style={styles.flex_border_bottom}>
                 <View style={styles.col3_border_right}>
                   <Text style={styles.centeredText}>Position</Text>
                 </View>

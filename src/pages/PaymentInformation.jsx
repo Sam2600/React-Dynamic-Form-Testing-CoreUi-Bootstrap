@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { prevStep } from "../redux/features/step/stepSlice";
 import { useForm } from "react-hook-form";
 import {
   addpaymentInformation,
   removePaymentInformation,
+  addTotalAmount,
+  increaseId,
 } from "../redux/features/contract/contractSlice";
 import { axiosClient } from "../axios/axiosClient";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -17,23 +19,23 @@ export const PaymentInformation = () => {
   //
   const dispatch = useDispatch();
 
-  const [rowNum, setRowNum] = useState(0);
-
   // And Server Fetching data will be stored in serverSideFetches
   const contract = useSelector((state) => state.contract);
 
-  const { paymentInformation, serverSideFetches } = contract;
+  const { paymentInformation, serverSideFetches, totalAmount_ai } = contract;
+
+  const { total_amount, id } = totalAmount_ai;
 
   // Destructuring for the form states
-  // const {
-  //   total_contract_amount,
-  //   payment_type,
-  //   contract_number,
-  //   payment_term,
-  //   payment_date,
-  //   amount,
-  //   file,
-  // } = paymentInformation[rowNum];
+  const {
+    total_contract_amount,
+    payment_type,
+    contract_number,
+    payment_term,
+    payment_date,
+    amount,
+    file,
+  } = paymentInformation;
 
   // Destructuring the states to loop the each select box
   const { payment_types, payment_terms } = serverSideFetches;
@@ -83,15 +85,15 @@ export const PaymentInformation = () => {
 
   // UseForm hook
   const { register, formState, control, handleSubmit, watch, reset } = useForm({
-    // defaultValues: {
-    //   total_contract_amount: total_contract_amount,
-    //   payment_type: payment_type,
-    //   contract_number: contract_number,
-    //   payment_term: payment_term,
-    //   payment_date: payment_date,
-    //   amount: amount,
-    //   file: file,
-    // },
+    defaultValues: {
+      total_contract_amount: total_amount,
+      payment_type: payment_type,
+      contract_number: contract_number,
+      payment_term: payment_term,
+      payment_date: payment_date,
+      amount: amount,
+      file: file,
+    },
   });
 
   // Useful Form states
@@ -106,21 +108,19 @@ export const PaymentInformation = () => {
 
   // handle onSubmit
   const onSubmit = (data) => {
-    //
-    setRowNum(rowNum + 1);
+    const paymentTotal = data?.total_contract_amount;
+
+    dispatch(addTotalAmount(paymentTotal));
+    dispatch(increaseId());
 
     const uploadedFile = data.file.length > 0 ? data.file[0].name : null;
 
-    const formData = { ...data, file: uploadedFile };
+    const formData = { id: id, ...data, file: uploadedFile };
 
     dispatch(addpaymentInformation(formData));
 
     reset();
   };
-
-  const [success, setSuccess] = useState(false);
-
-  // Pdf download
 
   // handle form register complete
   const handleFormRegister = () => {
@@ -141,8 +141,6 @@ export const PaymentInformation = () => {
     };
 
     console.log(contract);
-
-    setSuccess(!success);
 
     //axiosClient.post("/contracts", serverFormData).then(res => {
     // Do... something. Actually model box only should appear only after success post to server
@@ -178,6 +176,8 @@ export const PaymentInformation = () => {
                 className="form-control height43 w-100"
                 id="total_contract_amount"
                 placeholder="Enter total contract amount"
+                defaultValue={total_amount}
+                disabled={total_contract_amount ? true : false}
                 {...register("total_contract_amount", {
                   required: {
                     value: true,
@@ -319,10 +319,10 @@ export const PaymentInformation = () => {
                     </tr>
                   </thead>
                   <tbody className="t-body">
-                    {paymentInformation.map((pi, index) => {
+                    {paymentInformation.map((pi) => {
                       return (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
+                        <tr key={pi.id}>
+                          <td>{pi.id + 1}</td>
                           <td>{pi.payment_term}</td>
                           <td>{pi.payment_date}</td>
                           <td>{pi.amount}</td>
@@ -330,9 +330,7 @@ export const PaymentInformation = () => {
                             <button
                               type="button"
                               onClick={() =>
-                                dispatch(
-                                  removePaymentInformation(pi.payment_date)
-                                )
+                                dispatch(removePaymentInformation(pi.id))
                               }
                               className="trash-button"
                             >
