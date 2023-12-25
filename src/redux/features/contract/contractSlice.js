@@ -26,7 +26,7 @@ const initialState = {
     }
 }
 
-// This is for server-side 
+// This is for server-side CUD methods
 export const fetchGeneralForContracts = createAsyncThunk(
     'contracts/general/fetch',
     async () => {
@@ -71,7 +71,7 @@ export const deleteLifeCycle = createAsyncThunk(
         return data;
     }
 );
-// This is for server-side 
+// This is for server-side CUD methods
 
 export const contractSlice = createSlice({
     
@@ -122,12 +122,12 @@ export const contractSlice = createSlice({
 
         builder.addCase(_addlifeCycle.fulfilled, (state, action) => {
             console.log(action.payload);
-            //state.serverSideFetches.contracts = action.payload
+            //state.serverSideFetches.life_cycle_types = action.payload
         });
 
         builder.addCase(deleteLifeCycle.fulfilled, (state, action) => {
             console.log(action.payload);
-            //state.serverSideFetches.contracts = action.payload
+            //state.serverSideFetches.life_cycle_types = action.payload
         });
     }
 })

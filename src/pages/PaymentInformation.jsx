@@ -1,14 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, prevStep } from "../redux/features/step/stepSlice";
-import { useFieldArray, useForm } from "react-hook-form";
+import { prevStep } from "../redux/features/step/stepSlice";
+import { useForm } from "react-hook-form";
 import {
   addpaymentInformation,
   removePaymentInformation,
 } from "../redux/features/contract/contractSlice";
 import { axiosClient } from "../axios/axiosClient";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PdfDownload } from "./PDF/PdfDownload";
 
 export const PaymentInformation = () => {
   //
@@ -115,6 +118,10 @@ export const PaymentInformation = () => {
     reset();
   };
 
+  const [success, setSuccess] = useState(false);
+
+  // Pdf download
+
   // handle form register complete
   const handleFormRegister = () => {
     // destructuring the state
@@ -132,7 +139,11 @@ export const PaymentInformation = () => {
       lifeCycle,
       paymentInformation,
     };
-    console.log(serverFormData);
+
+    console.log(contract);
+
+    setSuccess(!success);
+
     //axiosClient.post("/contracts", serverFormData).then(res => {
     // Do... something. Actually model box only should appear only after success post to server
     //})
@@ -148,7 +159,6 @@ export const PaymentInformation = () => {
         <h5 className="fw-semibold text-black">Payment Information</h5>
       </div>
       {/** Title */}
-
       {/** Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex flex-column ">
@@ -369,21 +379,25 @@ export const PaymentInformation = () => {
             Previous
           </button>
 
-          <button
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            disabled={paymentInformation.length ? false : true}
-            onClick={handleFormRegister}
-            className="button text-white fw-semibold"
+          <PDFDownloadLink
+            document={<PdfDownload contract={contract} />}
+            fileName="Cyka"
           >
-            Save
-          </button>
+            <button
+              type="button"
+              // data-bs-toggle="modal"
+              // data-bs-target="#exampleModal"
+              disabled={paymentInformation.length ? false : true}
+              onClick={handleFormRegister}
+              className="button text-white fw-semibold"
+            >
+              Save
+            </button>
+          </PDFDownloadLink>
         </div>
         {/** Button */}
       </form>
       {/** Form */}
-
       {/** Hidden model */}
       <div
         className="modal fade"
